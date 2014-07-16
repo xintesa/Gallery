@@ -1,1 +1,5 @@
 *.swp
+
+# Composer
+composer.json
+composer.phar
