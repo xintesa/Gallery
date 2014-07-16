@@ -10,17 +10,17 @@ $this->assign('actions', '');
 	<?php
 		$tableHeaders = $this->Html->tableHeaders(array(
 			$this->Paginator->sort('id'),
-			$this->Paginator->sort('small', __('Preview')),
-			$this->Paginator->sort('description', __('Description')),
-			$this->Paginator->sort('url', __('url')),
-			__('Actions'),
+			$this->Paginator->sort('small', __d('gallery', 'Preview')),
+			$this->Paginator->sort('description', __d('gallery', 'Description')),
+			$this->Paginator->sort('url', __d('gallery', 'url')),
+			__d('gallery', 'Actions'),
 		));
 		echo $tableHeaders;
 
 		$rows = array();
 		foreach ($photos as $attachment) {
 			$actions = array();
-			$actions[] = $this->Croogo->adminRowAction(__('Choose'), '#', array(
+			$actions[] = $this->Croogo->adminRowAction(__d('gallery', 'Choose'), '#', array(
 				'class' => 'item-choose',
 				'data-chooser_type' => 'Photo',
 				'data-chooser_id' => $attachment['Photo']['id'],

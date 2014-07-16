@@ -59,25 +59,25 @@ echo $this->Form->create('Photo', array(
 
 	<div class="span4">
 	<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Apply'), array('name' => 'apply', 'button' => 'default')) .
-			$this->Form->button(__('Save'), array('button' => 'primary')) .
-			$this->Html->link(__('Cancel'), array('controller' => 'photos', 'action' => 'index'), array('button' => 'danger')) .
+		echo $this->Html->beginBox(__d('gallery', 'Publishing')) .
+			$this->Form->button(__d('gallery', 'Apply'), array('name' => 'apply', 'button' => 'default')) .
+			$this->Form->button(__d('gallery', 'Save'), array('button' => 'primary')) .
+			$this->Html->link(__d('gallery', 'Cancel'), array('controller' => 'photos', 'action' => 'index'), array('button' => 'danger')) .
 
 			$this->Form->input('status', array(
-				'label' => __('Status'),
+				'label' => __d('gallery', 'Status'),
 				'class' => false,
 			)) .
 
 			$this->Form->input('created', array(
 				'type' => 'text',
-				'placeholder' => __('Created'),
+				'placeholder' => __d('gallery', 'Created'),
 				'readonly' => true,
 			)) .
 
 			$this->Html->endBox();
 
-		echo $this->Html->beginBox(__('Preview')) .
+		echo $this->Html->beginBox(__d('gallery', 'Preview')) .
 			$this->Html->link(
 				$this->Html->image($this->data['ThumbnailAsset']['path'], array(
 					'class' => 'img-polaroid',

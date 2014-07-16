@@ -92,10 +92,10 @@ if (empty($this->data['Album']['title'])) {
 
 	<div class="span4">
 	<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Apply'), array('name' => 'apply', 'button' => 'default')) .
-			$this->Form->button(__('Save'), array('class' => 'btn btn-primary')) .
-			$this->Html->link(__('Cancel'), array('action' => 'index'), array('class' => 'cancel btn btn-danger')) .
+		echo $this->Html->beginBox(__d('gallery', 'Publishing')) .
+			$this->Form->button(__d('gallery', 'Apply'), array('name' => 'apply', 'button' => 'default')) .
+			$this->Form->button(__d('gallery', 'Save'), array('class' => 'btn btn-primary')) .
+			$this->Html->link(__d('gallery', 'Cancel'), array('action' => 'index'), array('class' => 'cancel btn btn-danger')) .
 
 			$this->Form->input('status', array(
 				'label' => __d('gallery', 'Status'),
@@ -105,7 +105,7 @@ if (empty($this->data['Album']['title'])) {
 		if ($this->request->param('action') == 'admin_edit'):
 			echo $this->Form->input('created', array(
 				'type' => 'text',
-				'placeholder' => __('Created'),
+				'placeholder' => __d('gallery', 'Created'),
 				'class' => 'input-datetime',
 			));
 		endif;

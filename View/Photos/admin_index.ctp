@@ -4,7 +4,7 @@ $this->extend('/Common/admin_index');
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb('Gallery')
+	->addCrumb(__d('gallery', 'Gallery'))
 	->addCrumb(__d('gallery', 'Photos'), array('admin' => true, 'plugin' => 'gallery', 'controller' => 'photos', 'action' => 'index'));
 
 $this->assign('actions', ' ');
@@ -16,12 +16,12 @@ $this->assign('actions', ' ');
 	<?php
 		$tableHeaders = $this->Html->tableHeaders(array(
 			$this->Paginator->sort('id'),
-			$this->Paginator->sort('small', __('Preview')),
-			$this->Paginator->sort('title', __('Title')),
-			$this->Paginator->sort('description', __('Description')),
-			$this->Paginator->sort('url', __('url')),
-			__('Albums'),
-			__('Actions'),
+			$this->Paginator->sort('small', __d('gallery', 'Preview')),
+			$this->Paginator->sort('title', __d('gallery', 'Title')),
+			$this->Paginator->sort('description', __d('gallery', 'Description')),
+			$this->Paginator->sort('url', __d('gallery', 'url')),
+			__d('gallery', 'Albums'),
+			__d('gallery', 'Actions'),
 		));
 		echo $tableHeaders;
 
@@ -30,7 +30,7 @@ $this->assign('actions', ' ');
 			$actions = array();
 			$actions[] = $this->Croogo->adminRowAction('',
 				array('controller' => 'photos', 'action' => 'edit', $attachment['Photo']['id']),
-				array('icon' => 'pencil', 'tooltip' => __('Edit'))
+				array('icon' => 'pencil', 'tooltip' => __d('gallery', 'Edit'))
 			);
 			$actions[] = $this->Croogo->adminRowActions($attachment['Photo']['id']);
 
