@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2010-09-08 21:16-0300\n"
-"PO-Revision-Date: 2014-07-16 15:27+0200\n"
-"Last-Translator: Laszlo <l.vanoudenhove@cvo-technologies.com>\n"
+"PO-Revision-Date: 2014-07-16 15:29+0200\n"
+"Last-Translator: Marlin Cremers <m.cremers@cvo-technologies.com>\n"
 "Language-Team: Dutch (ISO 639-2) <http://weblate.mms-"
 "projects.net/projects/croogo/croogo-gallery/nld/>\n"
 "Language: nld\n"
@@ -192,7 +192,7 @@ msgstr "Album lijst"
 
 #: /views/elements/admin_menu.ctp:5
 msgid "Gallery settings"
-msgstr "Galerij Instellingen"
+msgstr "Galerij instellingen"
 
 #: /views/elements/gallery_album.ctp:18
 msgid "No photos in the album"
