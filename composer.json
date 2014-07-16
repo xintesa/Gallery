@@ -17,5 +17,8 @@
 		"croogo/croogo": "~2.0",
 		"burzum/cakephp-imagine-plugin": "*",
 		"xintesa/assets": "*"
+	},
+	"extra": {
+		"installer-name": "Gallery"
 	}
 }
