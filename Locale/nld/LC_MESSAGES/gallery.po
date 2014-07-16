@@ -4,204 +4,359 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-09-08 21:16-0300\n"
+"POT-Creation-Date: 2014-07-16 16:02+0200\n"
 "PO-Revision-Date: 2014-07-16 15:29+0200\n"
 "Last-Translator: Marlin Cremers <m.cremers@cvo-technologies.com>\n"
-"Language-Team: Dutch (ISO 639-2) <http://weblate.mms-"
-"projects.net/projects/croogo/croogo-gallery/nld/>\n"
+"Language-Team: Dutch (ISO 639-2) <http://weblate.mms-projects.net/projects/"
+"croogo/croogo-gallery/nld/>\n"
 "Language: nld\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 1.9-dev\n"
 
-#: /controllers/albums_controller.php:25;105
-#: /views/albums/index.ctp:3
-msgid "Albums"
-msgstr "Albums"
-
-#: /controllers/albums_controller.php:58;73
-msgid "Album is saved."
-msgstr "Album is opgeslagen."
-
-#: /controllers/albums_controller.php:61;76
-msgid "Album could not be saved. Please try again."
-msgstr "Album kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: /controllers/albums_controller.php:68
-msgid "Invalid album."
-msgstr "Ongeldig album."
-
-#: /controllers/albums_controller.php:89
-msgid "Invalid ID for album."
-msgstr "Het album heeft een ongeldig ID."
-
-#: /controllers/albums_controller.php:98
-msgid "Album is deleted, and whole directory with images."
-msgstr "Het album en de afbeelingen daarin zijn verwijderd."
-
-#: /controllers/albums_controller.php:121;133;143
-msgid "Invalid album. Please try again."
-msgstr "Ongeldig album. Probeer het opnieuw."
-
-#: /controllers/albums_controller.php:137
-msgid "Album"
-msgstr "Album"
-
-#: /controllers/albums_controller.php:146
-msgid "Manage your photos in album"
-msgstr "Beheer de afbeeldingen in dit album"
-
-#: /controllers/albums_controller.php:175
-msgid "Invalid photo. Please try again."
-msgstr "Ongeldige afbeelding. Probeer het opnieuw."
-
-#: /controllers/albums_controller.php:181
-msgid "Problem to remove photo. Please try again."
-msgstr "Probleem met het verwijderen van de afbeelding. Probeer het opnieuw."
-
-#: /controllers/photos_controller.php:54
-msgid "Gallery pictures"
-msgstr "Galerij Afbeeldingen"
-
-#: /controllers/photos_controller.php:70
-msgid "Add pictures"
-msgstr "Voeg afbeeldingen toe"
-
-#: /controllers/photos_controller.php:146
-msgid "Edit pictures"
-msgstr "Pas Afbeeldingen aan"
-
-#: /controllers/photos_controller.php:149
-msgid "Invalid pictures."
-msgstr "Ongeldige afbeeldingen."
-
-#: /controllers/photos_controller.php:154
-msgid "Picture is saved."
-msgstr "De afbeelding is opgeslagen."
-
-#: /controllers/photos_controller.php:157
-msgid "Picture could not be saved. Please try again."
-msgstr "De afbeelding kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: /controllers/photos_controller.php:175
-msgid "Invalid picture ID."
-msgstr "De afbeelding heeft een ongeldig ID."
-
-#: /controllers/photos_controller.php:185
-msgid "Picture is deleted from gallery."
-msgstr "De afbeelding is van de galerij verwijderd."
-
-#: /views/albums/admin_add.ctp:2
-msgid "Add album"
-msgstr "Album Toevoegen"
-
-#: /views/albums/admin_add.ctp:6
-#: /views/albums/admin_edit.ctp:7
-#: /views/albums/admin_index.ctp:15
-msgid "Title"
-msgstr "Titel"
-
-#: /views/albums/admin_add.ctp:8
-#: /views/albums/admin_edit.ctp:9
-#: /views/photos/admin_edit.ctp:13
-#: /views/photos/admin_index.ctp:14
-msgid "Description"
-msgstr "Omschrijving"
-
-#: /views/albums/admin_edit.ctp:2
-msgid "Edit album"
-msgstr "Album bewerken"
-
-#: /views/albums/admin_index.ctp:6
-#: /views/elements/admin_menu.ctp:4
-msgid "New album"
-msgstr "Nieuw Album"
-
-#: /views/albums/admin_index.ctp:14
-msgid "Order number"
-msgstr "Order nummer"
-
-#: /views/albums/admin_index.ctp:17
-#: /views/photos/admin_index.ctp:15
-msgid "Actions"
-msgstr "Acties"
-
-#: /views/albums/admin_index.ctp:23
-msgid "Move up"
-msgstr "Verplaats omhoog"
-
-#: /views/albums/admin_index.ctp:24
-msgid "Move down"
-msgstr "Verplaats omlaag"
-
-#: /views/albums/admin_index.ctp:25
-msgid "Photos in album"
-msgstr "Afbeeldingen in album"
-
-#: /views/albums/admin_index.ctp:27
-#: /views/photos/admin_index.ctp:21
-msgid "Edit"
-msgstr "Bewerken"
-
-#: /views/albums/admin_index.ctp:28
-#: /views/photos/admin_index.ctp:22
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: /views/albums/admin_index.ctp:28
-msgid "Jeste li sigurni?"
-msgstr "Weet je het zeker?"
-
-#: /views/albums/admin_index.ctp:46
-#: /views/photos/admin_index.ctp:43
-msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
-msgstr ""
-"Pagina %page% van %pages%, laat %current% archief uit %count% van total, "
-"begin van archief %start%, einde van %end%"
-
-#: /views/albums/admin_upload.ctp:11;26
-msgid "remove"
-msgstr "Verwijder"
-
-#: /views/albums/admin_upload.ctp:30
-msgid "Drop files here to upload"
-msgstr "Drop bestanden hier om te uploaden"
-
-#: /views/albums/admin_upload.ctp:31
-msgid "Add new photos"
-msgstr "Voeg nieuwe afbeeldingen toe"
-
-#: /views/albums/admin_upload.ctp:39
-msgid "cancel"
-msgstr "Afbreken"
-
-#: /views/albums/index.ctp:4
-msgid "No albums found."
-msgstr "Geen albums gevonden"
-
-#: /views/elements/admin_menu.ctp:1
-#: /views/photos/admin_edit.ctp:9
+#: /Config/admin_menu.php:4 /View/Albums/admin_index.ctp:7
+#: /View/Photos/admin_index.ctp:7
 msgid "Gallery"
 msgstr "Galerij"
 
-#: /views/elements/admin_menu.ctp:3
-msgid "List albums"
+#: /Config/admin_menu.php:23 /View/Albums/admin_form.ctp:20
+#: /View/Albums/admin_upload.ctp:29 /View/Photos/admin_form.ctp:10
+#: /View/Photos/admin_index.ctp:8
+msgid "Photos"
+msgstr ""
+
+#: /Config/admin_menu.php:33 /View/Albums/admin_form.ctp:38
+msgid "Settings"
+msgstr ""
+
+#: /Controller/AlbumsController.php:47;127 /View/Albums/admin_form.ctp:8
+#: /View/Albums/admin_index.ctp:8 /View/Albums/admin_upload.ctp:15
+#: /View/Albums/index.ctp:1 /View/Photos/admin_index.ctp:23
+msgid "Albums"
+msgstr "Albums"
+
+#: /Controller/AlbumsController.php:82;98
+msgid "Album is saved."
+msgstr "Album is opgeslagen."
+
+#: /Controller/AlbumsController.php:85;101
+msgid "Album could not be saved. Please try again."
+msgstr "Album kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: /Controller/AlbumsController.php:93
+msgid "Invalid album."
+msgstr "Ongeldig album."
+
+#: /Controller/AlbumsController.php:111
+msgid "Invalid ID for album."
+msgstr "Het album heeft een ongeldig ID."
+
+#: /Controller/AlbumsController.php:120
+msgid "Album is deleted, and whole directory with images."
+msgstr "Het album en de afbeelingen daarin zijn verwijderd."
+
+#: /Controller/AlbumsController.php:147;160;170
+msgid "Invalid album. Please try again."
+msgstr "Ongeldig album. Probeer het opnieuw."
+
+#: /Controller/AlbumsController.php:164
+#, fuzzy
+#| msgid "Albums"
+msgid "Album %s"
+msgstr "Albums"
+
+#: /Controller/AlbumsController.php:173
+msgid "Manage your photos in album"
+msgstr "Beheer de afbeeldingen in dit album"
+
+#: /Controller/AlbumsController.php:223
+msgid "Invalid photo. Please try again."
+msgstr "Ongeldige afbeelding. Probeer het opnieuw."
+
+#: /Controller/AlbumsController.php:229
+msgid "Problem to remove photo. Please try again."
+msgstr "Probleem met het verwijderen van de afbeelding. Probeer het opnieuw."
+
+#: /Controller/PhotosController.php:60
+msgid "Photo has been saved."
+msgstr ""
+
+#: /Controller/PhotosController.php:63
+msgid "Photo cannot be saved."
+msgstr ""
+
+#: /Controller/PhotosController.php:75
+msgid "Moved up successfully"
+msgstr ""
+
+#: /Controller/PhotosController.php:77
+msgid "Could not move up"
+msgstr ""
+
+#: /Controller/PhotosController.php:84
+msgid "Moved down successfully"
+msgstr ""
+
+#: /Controller/PhotosController.php:86
+msgid "Could not move down"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:11 /View/Albums/admin_upload.ctp:23
+msgid "Add"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:23
+#, fuzzy
+#| msgid "Manage your photos in album"
+msgid "Manage/upload photos for this album"
+msgstr "Beheer de afbeeldingen in dit album"
+
+#: /View/Albums/admin_form.ctp:37 /View/Albums/view.ctp:1
+msgid "Album"
+msgstr "Album"
+
+#: /View/Albums/admin_form.ctp:51 /View/Albums/admin_index.ctp:27
+#: /View/Photos/admin_form.ctp:40 /View/Photos/admin_index.ctp:20
+msgid "Title"
+msgstr "Titel"
+
+#: /View/Albums/admin_form.ctp:54
+msgid "Slug"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:57 /View/Albums/admin_index.ctp:28
+#: /View/Photos/admin_chooser.ctp:14 /View/Photos/admin_form.ctp:43
+#: /View/Photos/admin_index.ctp:21
+msgid "Description"
+msgstr "Omschrijving"
+
+#: /View/Albums/admin_form.ctp:60 /View/Albums/admin_index.ctp:29
+msgid "Type"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:70
+msgid "Quality"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:73
+msgid "Max. width"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:76
+msgid "Max. height"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:79
+msgid "Max. thumbnail width"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:82
+msgid "Max. thumbnail height"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:85
+msgid "Parameters"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:95 /View/Photos/admin_form.ctp:62
+msgid "Publishing"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:96 /View/Photos/admin_form.ctp:63
+msgid "Apply"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:97 /View/Photos/admin_form.ctp:64
+msgid "Save"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:98 /View/Photos/admin_form.ctp:65
+#, fuzzy
+#| msgid "cancel"
+msgid "Cancel"
+msgstr "Afbreken"
+
+#: /View/Albums/admin_form.ctp:101 /View/Photos/admin_form.ctp:68
+msgid "Status"
+msgstr ""
+
+#: /View/Albums/admin_form.ctp:108 /View/Photos/admin_form.ctp:74
+msgid "Created"
+msgstr ""
+
+#: /View/Albums/admin_index.ctp:12
+msgid "New album"
+msgstr "Nieuw Album"
+
+#: /View/Albums/admin_index.ctp:26
+msgid "Order number"
+msgstr "Order nummer"
+
+#: /View/Albums/admin_index.ctp:31 /View/Photos/admin_chooser.ctp:16
+#: /View/Photos/admin_index.ctp:24
+msgid "Actions"
+msgstr "Acties"
+
+#: /View/Albums/admin_index.ctp:40
+msgid "Move up"
+msgstr "Verplaats omhoog"
+
+#: /View/Albums/admin_index.ctp:43
+msgid "Move down"
+msgstr "Verplaats omlaag"
+
+#: /View/Albums/admin_index.ctp:49
+msgid "Photos in album"
+msgstr "Afbeeldingen in album"
+
+#: /View/Albums/admin_index.ctp:55 /View/Photos/admin_index.ctp:33
+msgid "Edit"
+msgstr "Bewerken"
+
+#: /View/Albums/admin_index.ctp:59
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: /View/Albums/admin_index.ctp:60
+msgid "Are you sure you want to delete this album?"
+msgstr ""
+
+#: /View/Albums/admin_upload.ctp:33
+msgid "Reset weight"
+msgstr ""
+
+#: /View/Albums/admin_upload.ctp:44
+msgid "You will lose existing order for this album. Continue?"
+msgstr ""
+
+#: /View/Albums/admin_upload.ctp:81
+msgid "Filename: %s"
+msgstr ""
+
+#: /View/Albums/admin_upload.ctp:150 /View/Elements/admin/album_actions.ctp:3
+msgid "remove"
+msgstr "Verwijder"
+
+#: /View/Albums/admin_upload.ctp:151 /View/Elements/admin/album_actions.ctp:14
+msgid "edit"
+msgstr ""
+
+#: /View/Albums/admin_upload.ctp:152
+msgid "up"
+msgstr ""
+
+#: /View/Albums/admin_upload.ctp:153
+#, fuzzy
+#| msgid "Move down"
+msgid "down"
+msgstr "Verplaats omlaag"
+
+#: /View/Albums/index.ctp:5
+msgid "No albums found."
+msgstr "Geen albums gevonden"
+
+#: /View/Albums/index.ctp:19
+msgid "This album has no photo"
+msgstr ""
+
+#: /View/Albums/index.ctp:33
+#, fuzzy
+#| msgid "New album"
+msgid "View album"
+msgstr "Nieuw Album"
+
+#: /View/Albums/view.ctp:6
+#, fuzzy
+#| msgid "List albums"
+msgid "View other albums"
 msgstr "Album lijst"
 
-#: /views/elements/admin_menu.ctp:5
-msgid "Gallery settings"
-msgstr "Galerij instellingen"
-
-#: /views/elements/gallery_album.ctp:18
+#: /View/Elements/gallery_album.ctp:23
 msgid "No photos in the album"
 msgstr "Er staan geen afbeeldingen in het album"
 
-#: /views/photos/admin_index.ctp:6
-msgid "Add new pictures"
-msgstr "Voeg nieuwe afbeeldingen toe"
+#: /View/Photos/admin_chooser.ctp:13 /View/Photos/admin_form.ctp:80
+#: /View/Photos/admin_index.ctp:19
+msgid "Preview"
+msgstr ""
 
-#: /views/photos/admin_index.ctp:22
-msgid "Jesi siguran?"
-msgstr "Weet je het zeker?"
+#: /View/Photos/admin_chooser.ctp:15 /View/Photos/admin_index.ctp:22
+msgid "url"
+msgstr ""
+
+#: /View/Photos/admin_chooser.ctp:23
+msgid "Choose"
+msgstr ""
+
+#: /View/Photos/admin_form.ctp:25
+msgid "Photo"
+msgstr ""
+
+#: /View/Photos/admin_form.ctp:46
+msgid "Url"
+msgstr ""
+
+#: /View/Photos/admin_form.ctp:49
+msgid "Params"
+msgstr ""
+
+#: /View/Photos/admin_form.ctp:52
+msgid "Weight"
+msgstr ""
+
+#~ msgid "Gallery pictures"
+#~ msgstr "Galerij Afbeeldingen"
+
+#~ msgid "Add pictures"
+#~ msgstr "Voeg afbeeldingen toe"
+
+#~ msgid "Edit pictures"
+#~ msgstr "Pas Afbeeldingen aan"
+
+#~ msgid "Invalid pictures."
+#~ msgstr "Ongeldige afbeeldingen."
+
+#~ msgid "Picture is saved."
+#~ msgstr "De afbeelding is opgeslagen."
+
+#~ msgid "Picture could not be saved. Please try again."
+#~ msgstr "De afbeelding kon niet worden opgeslagen. Probeer het opnieuw."
+
+#~ msgid "Invalid picture ID."
+#~ msgstr "De afbeelding heeft een ongeldig ID."
+
+#~ msgid "Picture is deleted from gallery."
+#~ msgstr "De afbeelding is van de galerij verwijderd."
+
+#~ msgid "Add album"
+#~ msgstr "Album Toevoegen"
+
+#~ msgid "Edit album"
+#~ msgstr "Album bewerken"
+
+#~ msgid "Jeste li sigurni?"
+#~ msgstr "Weet je het zeker?"
+
+#~ msgid ""
+#~ "Page %page% of %pages%, showing %current% records out of %count% total, "
+#~ "starting on record %start%, ending on %end%"
+#~ msgstr ""
+#~ "Pagina %page% van %pages%, laat %current% archief uit %count% van total, "
+#~ "begin van archief %start%, einde van %end%"
+
+#~ msgid "Drop files here to upload"
+#~ msgstr "Drop bestanden hier om te uploaden"
+
+#~ msgid "Add new photos"
+#~ msgstr "Voeg nieuwe afbeeldingen toe"
+
+#~ msgid "Gallery settings"
+#~ msgstr "Galerij instellingen"
+
+#~ msgid "Add new pictures"
+#~ msgstr "Voeg nieuwe afbeeldingen toe"
+
+#~ msgid "Jesi siguran?"
+#~ msgstr "Weet je het zeker?"

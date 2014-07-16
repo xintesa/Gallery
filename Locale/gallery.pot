@@ -9,76 +9,78 @@ msgstr ""
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /Config/admin_menu.php:4 /View/Albums/admin_index.ctp:7
+#: /Config/admin_menu.php:4
+#: /View/Albums/admin_index.ctp:7
 #: /View/Photos/admin_index.ctp:7
 msgid "Gallery"
-msgstr "Galeria"
+msgstr ""
 
-#: /Config/admin_menu.php:23 /View/Albums/admin_form.ctp:20
-#: /View/Albums/admin_upload.ctp:29 /View/Photos/admin_form.ctp:10
+#: /Config/admin_menu.php:23
+#: /View/Albums/admin_form.ctp:20
+#: /View/Albums/admin_upload.ctp:29
+#: /View/Photos/admin_form.ctp:10
 #: /View/Photos/admin_index.ctp:8
 msgid "Photos"
 msgstr ""
 
-#: /Config/admin_menu.php:33 /View/Albums/admin_form.ctp:38
+#: /Config/admin_menu.php:33
+#: /View/Albums/admin_form.ctp:38
 msgid "Settings"
 msgstr ""
 
-#: /Controller/AlbumsController.php:47;127 /View/Albums/admin_form.ctp:8
-#: /View/Albums/admin_index.ctp:8 /View/Albums/admin_upload.ctp:15
-#: /View/Albums/index.ctp:1 /View/Photos/admin_index.ctp:23
+#: /Controller/AlbumsController.php:47;127
+#: /View/Albums/admin_form.ctp:8
+#: /View/Albums/admin_index.ctp:8
+#: /View/Albums/admin_upload.ctp:15
+#: /View/Albums/index.ctp:1
+#: /View/Photos/admin_index.ctp:23
 msgid "Albums"
-msgstr "Albuns"
+msgstr ""
 
 #: /Controller/AlbumsController.php:82;98
 msgid "Album is saved."
-msgstr "Album salvo"
+msgstr ""
 
 #: /Controller/AlbumsController.php:85;101
 msgid "Album could not be saved. Please try again."
-msgstr "Album não pode ser salvo. Por favor tente novamente."
+msgstr ""
 
 #: /Controller/AlbumsController.php:93
 msgid "Invalid album."
-msgstr "Album inválido."
+msgstr ""
 
 #: /Controller/AlbumsController.php:111
 msgid "Invalid ID for album."
-msgstr "ID do album inválido."
+msgstr ""
 
 #: /Controller/AlbumsController.php:120
 msgid "Album is deleted, and whole directory with images."
-msgstr "Album e suas fotos foram excluidos com sucesso."
+msgstr ""
 
 #: /Controller/AlbumsController.php:147;160;170
-#, fuzzy
-#| msgid "Invalid photo. Please try again."
 msgid "Invalid album. Please try again."
-msgstr "Foto inválida. Por favor tente novamente."
+msgstr ""
 
 #: /Controller/AlbumsController.php:164
-#, fuzzy
-#| msgid "Albums"
 msgid "Album %s"
-msgstr "Albuns"
+msgstr ""
 
 #: /Controller/AlbumsController.php:173
 msgid "Manage your photos in album"
-msgstr "Gerencie suas fotos no album"
+msgstr ""
 
 #: /Controller/AlbumsController.php:223
 msgid "Invalid photo. Please try again."
-msgstr "Foto inválida. Por favor tente novamente."
+msgstr ""
 
 #: /Controller/AlbumsController.php:229
 msgid "Problem to remove photo. Please try again."
-msgstr "Problemas para remover foto. Por favor tente novamente."
+msgstr ""
 
 #: /Controller/PhotosController.php:60
 msgid "Photo has been saved."
@@ -104,22 +106,24 @@ msgstr ""
 msgid "Could not move down"
 msgstr ""
 
-#: /View/Albums/admin_form.ctp:11 /View/Albums/admin_upload.ctp:23
+#: /View/Albums/admin_form.ctp:11
+#: /View/Albums/admin_upload.ctp:23
 msgid "Add"
 msgstr ""
 
 #: /View/Albums/admin_form.ctp:23
-#, fuzzy
-#| msgid "Manage your photos in album"
 msgid "Manage/upload photos for this album"
-msgstr "Gerencie suas fotos no album"
+msgstr ""
 
-#: /View/Albums/admin_form.ctp:37 /View/Albums/view.ctp:1
+#: /View/Albums/admin_form.ctp:37
+#: /View/Albums/view.ctp:1
 msgid "Album"
-msgstr "Album"
+msgstr ""
 
-#: /View/Albums/admin_form.ctp:51 /View/Albums/admin_index.ctp:27
-#: /View/Photos/admin_form.ctp:40 /View/Photos/admin_index.ctp:20
+#: /View/Albums/admin_form.ctp:51
+#: /View/Albums/admin_index.ctp:27
+#: /View/Photos/admin_form.ctp:40
+#: /View/Photos/admin_index.ctp:20
 msgid "Title"
 msgstr ""
 
@@ -127,13 +131,16 @@ msgstr ""
 msgid "Slug"
 msgstr ""
 
-#: /View/Albums/admin_form.ctp:57 /View/Albums/admin_index.ctp:28
-#: /View/Photos/admin_chooser.ctp:14 /View/Photos/admin_form.ctp:43
+#: /View/Albums/admin_form.ctp:57
+#: /View/Albums/admin_index.ctp:28
+#: /View/Photos/admin_chooser.ctp:14
+#: /View/Photos/admin_form.ctp:43
 #: /View/Photos/admin_index.ctp:21
 msgid "Description"
-msgstr "Descrição"
+msgstr ""
 
-#: /View/Albums/admin_form.ctp:60 /View/Albums/admin_index.ctp:29
+#: /View/Albums/admin_form.ctp:60
+#: /View/Albums/admin_index.ctp:29
 msgid "Type"
 msgstr ""
 
@@ -161,41 +168,46 @@ msgstr ""
 msgid "Parameters"
 msgstr ""
 
-#: /View/Albums/admin_form.ctp:95 /View/Photos/admin_form.ctp:62
+#: /View/Albums/admin_form.ctp:95
+#: /View/Photos/admin_form.ctp:62
 msgid "Publishing"
 msgstr ""
 
-#: /View/Albums/admin_form.ctp:96 /View/Photos/admin_form.ctp:63
+#: /View/Albums/admin_form.ctp:96
+#: /View/Photos/admin_form.ctp:63
 msgid "Apply"
 msgstr ""
 
-#: /View/Albums/admin_form.ctp:97 /View/Photos/admin_form.ctp:64
+#: /View/Albums/admin_form.ctp:97
+#: /View/Photos/admin_form.ctp:64
 msgid "Save"
 msgstr ""
 
-#: /View/Albums/admin_form.ctp:98 /View/Photos/admin_form.ctp:65
-#, fuzzy
-#| msgid "cancel"
+#: /View/Albums/admin_form.ctp:98
+#: /View/Photos/admin_form.ctp:65
 msgid "Cancel"
-msgstr "cancelar"
+msgstr ""
 
-#: /View/Albums/admin_form.ctp:101 /View/Photos/admin_form.ctp:68
+#: /View/Albums/admin_form.ctp:101
+#: /View/Photos/admin_form.ctp:68
 msgid "Status"
 msgstr ""
 
-#: /View/Albums/admin_form.ctp:108 /View/Photos/admin_form.ctp:74
+#: /View/Albums/admin_form.ctp:108
+#: /View/Photos/admin_form.ctp:74
 msgid "Created"
 msgstr ""
 
 #: /View/Albums/admin_index.ctp:12
 msgid "New album"
-msgstr "Novo album"
+msgstr ""
 
 #: /View/Albums/admin_index.ctp:26
 msgid "Order number"
-msgstr "Ordem"
+msgstr ""
 
-#: /View/Albums/admin_index.ctp:31 /View/Photos/admin_chooser.ctp:16
+#: /View/Albums/admin_index.ctp:31
+#: /View/Photos/admin_chooser.ctp:16
 #: /View/Photos/admin_index.ctp:24
 msgid "Actions"
 msgstr ""
@@ -210,15 +222,16 @@ msgstr ""
 
 #: /View/Albums/admin_index.ctp:49
 msgid "Photos in album"
-msgstr "Fotos no album"
+msgstr ""
 
-#: /View/Albums/admin_index.ctp:55 /View/Photos/admin_index.ctp:33
+#: /View/Albums/admin_index.ctp:55
+#: /View/Photos/admin_index.ctp:33
 msgid "Edit"
-msgstr "Editar"
+msgstr ""
 
 #: /View/Albums/admin_index.ctp:59
 msgid "Delete"
-msgstr "Excluir"
+msgstr ""
 
 #: /View/Albums/admin_index.ctp:60
 msgid "Are you sure you want to delete this album?"
@@ -236,11 +249,13 @@ msgstr ""
 msgid "Filename: %s"
 msgstr ""
 
-#: /View/Albums/admin_upload.ctp:150 /View/Elements/admin/album_actions.ctp:3
+#: /View/Albums/admin_upload.ctp:150
+#: /View/Elements/admin/album_actions.ctp:3
 msgid "remove"
-msgstr "remover"
+msgstr ""
 
-#: /View/Albums/admin_upload.ctp:151 /View/Elements/admin/album_actions.ctp:14
+#: /View/Albums/admin_upload.ctp:151
+#: /View/Elements/admin/album_actions.ctp:14
 msgid "edit"
 msgstr ""
 
@@ -254,34 +269,32 @@ msgstr ""
 
 #: /View/Albums/index.ctp:5
 msgid "No albums found."
-msgstr "Nenhum album encontrado"
+msgstr ""
 
 #: /View/Albums/index.ctp:19
 msgid "This album has no photo"
 msgstr ""
 
 #: /View/Albums/index.ctp:33
-#, fuzzy
-#| msgid "view album"
 msgid "View album"
-msgstr "ver album"
+msgstr ""
 
 #: /View/Albums/view.ctp:6
-#, fuzzy
-#| msgid "view album"
 msgid "View other albums"
-msgstr "ver album"
+msgstr ""
 
 #: /View/Elements/gallery_album.ctp:23
 msgid "No photos in the album"
-msgstr "Nenhuma foto no album"
+msgstr ""
 
-#: /View/Photos/admin_chooser.ctp:13 /View/Photos/admin_form.ctp:80
+#: /View/Photos/admin_chooser.ctp:13
+#: /View/Photos/admin_form.ctp:80
 #: /View/Photos/admin_index.ctp:19
 msgid "Preview"
 msgstr ""
 
-#: /View/Photos/admin_chooser.ctp:15 /View/Photos/admin_index.ctp:22
+#: /View/Photos/admin_chooser.ctp:15
+#: /View/Photos/admin_index.ctp:22
 msgid "url"
 msgstr ""
 
@@ -305,23 +318,3 @@ msgstr ""
 msgid "Weight"
 msgstr ""
 
-#~ msgid "Add album"
-#~ msgstr "Adicionar album"
-
-#~ msgid "Edit album"
-#~ msgstr "Editar Album"
-
-#~ msgid "Drop files here to upload"
-#~ msgstr "Solte aqui os arquivos para enviar"
-
-#~ msgid "Add new photos"
-#~ msgstr "Adicionar novas fotos"
-
-#~ msgid "List albums"
-#~ msgstr "Listar albuns"
-
-#~ msgid "Gallery settings"
-#~ msgstr "Configurar galeria"
-
-#~ msgid "Add new pictures"
-#~ msgstr "Adicionar nova foto"
