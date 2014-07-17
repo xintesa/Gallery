@@ -4,8 +4,8 @@ $this->extend('/Common/admin_index');
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Gallery'))
-	->addCrumb(__('Albums'), $this->here);
+	->addCrumb(__d('gallery', 'Gallery'))
+	->addCrumb(__d('gallery', 'Albums'), $this->here);
 ?>
 <?php echo $this->start('actions'); ?>
 	<?php
@@ -37,10 +37,10 @@ $this->Html
 				$actions = array();
 				$actions[] = $this->Croogo->adminRowAction('',
 					array('controller' => 'albums', 'action' => 'moveup', $album['Album']['id']),
-					array('icon' => 'arrow-up', 'tooltip' => __('Move up'))
+					array('icon' => 'arrow-up', 'tooltip' => __d('gallery', 'Move up'))
 				);
 				$actions[] = $this->Croogo->adminRowAction('',
-					array('controller' => 'albums', 'action' => 'movedown', $album['Album']['id']), array('icon' => 'arrow-down', 'tooltip' => __('Move down'))
+					array('controller' => 'albums', 'action' => 'movedown', $album['Album']['id']), array('icon' => 'arrow-down', 'tooltip' => __d('gallery', 'Move down'))
 				);
 				$actions[] = $this->Html->link('',
 					array('controller' => 'albums', 'action' => 'upload', $album['Album']['id']),
@@ -52,12 +52,12 @@ $this->Html
 				$actions[] = $this->Croogo->adminRowActions($album['Album']['id']);
 				$actions[] = $this->Croogo->adminRowAction('',
 					array('controller' => 'albums', 'action' => 'edit', $album['Album']['id']),
-					array('icon' => 'pencil', 'tooltip' => __('Edit'))
+					array('icon' => 'pencil', 'tooltip' => __d('gallery', 'Edit'))
 				);
 				$actions[] = $this->Croogo->adminRowAction('',
 					array('controller' => 'albums', 'action' => 'delete', $album['Album']['id']),
-					array('icon' => 'trash', 'tooltip' => __('Delete')),
-					__('Are you sure you want to delete this album?')
+					array('icon' => 'trash', 'tooltip' => __d('gallery', 'Delete')),
+					__d('gallery', 'Are you sure you want to delete this album?')
 				);
 
 				$rows[] = array(

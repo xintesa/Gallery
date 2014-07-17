@@ -30,7 +30,7 @@ else:
 endif;
 
 $this->start('actions');
-	echo $this->Form->postLink(__('Reset weight'),
+	echo $this->Form->postLink(__d('gallery', 'Reset weight'),
 		array(
 			'plugin' => 'gallery',
 			'controller' => 'albums',
@@ -41,7 +41,7 @@ $this->start('actions');
 			'button' => 'default',
 			'escape' => false,
 		),
-		__('You will lose existing order for this album. Continue?')
+		__d('gallery', 'You will lose existing order for this album. Continue?')
 	);
 $this->end();
 
@@ -78,7 +78,7 @@ $this->end();
 							$photo['OriginalAsset']['path'],
 							array('target' => '_blank', 'title' => $filename)
 						);
-						echo __('Filename: %s', $filename);
+						echo __d('gallery', 'Filename: %s', $filename);
 					?>
 					</div>
 
