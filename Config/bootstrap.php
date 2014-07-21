@@ -12,6 +12,29 @@ Croogo::hookHelper('*', 'Gallery.Gallery');
 
 Croogo::hookAdminMenu('Gallery');
 
+Croogo::mergeConfig('Wysiwyg.actions', array(
+	'Albums/admin_add' => array(
+		array(
+			'elements' => 'AlbumDescription',
+		),
+	),
+	'Albums/admin_edit' => array(
+		array(
+			'elements' => 'AlbumDescription',
+		),
+	),
+	'Photos/admin_add' => array(
+		array(
+			'elements' => 'PhotoDescription',
+		),
+	),
+	'Photos/admin_edit' => array(
+		array(
+			'elements' => 'PhotoDescription',
+		),
+	)
+));
+
 $cacheConfig = array(
 	'duration' => '+1 hour',
 	'engine' => Configure::read('Cache.defaultEngine'),
