@@ -47,16 +47,16 @@ if (empty($this->data['Album']['title'])) {
 				));
 				echo $this->Form->input('id');
 				echo $this->Form->input('title', array(
-					'placeholder' => __d('gallery', 'Title')
+					'label' => __d('gallery', 'Title')
 				));
 				echo $this->Form->input('slug', array(
-					'placeholder' => __d('gallery', 'Slug'),
+					'label' => __d('gallery', 'Slug'),
 				));
 				echo $this->Form->input('description', array(
-					'placeholder' => __d('gallery', 'Description'),
+					'label' => __d('gallery', 'Description'),
 				));
 				echo $this->Form->input('type', array(
-					'placeholder' => __d('gallery', 'Type'),
+					'label' => __d('gallery', 'Type'),
 					'empty' => true,
 					'default' => key($types),
 				));
@@ -66,22 +66,22 @@ if (empty($this->data['Album']['title'])) {
 			<div id='album-settings' class="tab-pane">
 			<?php
 				echo $this->Form->input('quality', array(
-					'placeholder' => __d('gallery', 'Quality'),
+					'label' => __d('gallery', 'Quality'),
 				));
 				echo $this->Form->input('max_width', array(
-					'placeholder' => __d('gallery', 'Max. width'),
+					'label' => __d('gallery', 'Max. width'),
 				));
 				echo $this->Form->input('max_height', array(
-					'placeholder' => __d('gallery', 'Max. height'),
+					'label' => __d('gallery', 'Max. height'),
 				));
 				echo $this->Form->input('max_width_thumbnail', array(
-					'placeholder' => __d('gallery', 'Max. thumbnail width'),
+					'label' => __d('gallery', 'Max. thumbnail width'),
 				));
 				echo $this->Form->input('max_height_thumbnail', array(
-					'placeholder' => __d('gallery', 'Max. thumbnail height'),
+					'label' => __d('gallery', 'Max. thumbnail height'),
 				));
 				echo $this->Form->input('params', array(
-					'placeholder' => __d('gallery', 'Parameters'),
+					'label' => __d('gallery', 'Parameters'),
 				));
 			?>
 			</div>
