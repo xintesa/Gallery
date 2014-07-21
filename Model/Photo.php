@@ -31,6 +31,8 @@ class Photo extends GalleryAppModel {
  */
 	public $actsAs = array(
 		'Croogo.Params',
+		'Croogo.Publishable',
+		'Croogo.Trackable',
 		'Imagine.Imagine',
 		'Search.Searchable',
 	);

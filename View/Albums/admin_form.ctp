@@ -43,7 +43,6 @@ if (empty($this->data['Album']['title'])) {
 			<div id='album-main' class="tab-pane">
 			<?php
 				$this->Form->inputDefaults(array(
-					'label' => false,
 					'class' => 'span10',
 				));
 				echo $this->Form->input('id');
@@ -94,21 +93,32 @@ if (empty($this->data['Album']['title'])) {
 	<?php
 		echo $this->Html->beginBox(__d('gallery', 'Publishing')) .
 			$this->Form->button(__d('gallery', 'Apply'), array('name' => 'apply', 'button' => 'default')) .
-			$this->Form->button(__d('gallery', 'Save'), array('class' => 'btn btn-primary')) .
+			$this->Form->button(__d('gallery', 'Save'), array('button' => 'success')) .
 			$this->Html->link(__d('gallery', 'Cancel'), array('action' => 'index'), array('class' => 'cancel btn btn-danger')) .
 
 			$this->Form->input('status', array(
-				'label' => __d('gallery', 'Status'),
+				'legend' => false,
+				'type' => 'radio',
 				'class' => false,
-			));
+				'default' => CroogoStatus::UNPUBLISHED,
+				'options' => $this->Croogo->statuses(),
+			)) .
 
-		if ($this->request->param('action') == 'admin_edit'):
-			echo $this->Form->input('created', array(
+			$this->Form->input('created', array(
 				'type' => 'text',
-				'placeholder' => __d('gallery', 'Created'),
-				'class' => 'input-datetime',
-			));
-		endif;
+				'class' => 'span10 input-datetime',
+			)) .
+
+			$this->Html->div('input-daterange',
+				$this->Form->input('publish_start', array(
+					'label' => __d('croogo', 'Publish Start'),
+					'type' => 'text',
+				)) .
+				$this->Form->input('publish_end', array(
+					'label' => __d('croogo', 'Publish End'),
+					'type' => 'text',
+				))
+			);
 
 		echo $this->Html->endBox();
 

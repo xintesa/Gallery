@@ -37,10 +37,21 @@ class AlbumsController extends GalleryAppController {
 		$this->jslibs = Galleries::activeLibs();
 		parent::beforeFilter();
 
-		$noCsrf = array('admin_upload_photo', 'admin_delete_photo');
+		$noCsrf = array('admin_upload_photo', 'admin_delete_photo', 'admin_toggle');
 		if (in_array($this->action, $noCsrf) && $this->request->is('ajax')) {
 			$this->Security->csrfCheck = false;
 		}
+	}
+
+/**
+ * Toggle Album status
+ *
+ * @param string $id Album id
+ * @param integer $status Current Album status
+ * @return void
+ */
+	public function admin_toggle($id = null, $status = null) {
+		$this->Croogo->fieldToggle($this->{$this->modelClass}, $id, $status);
 	}
 
 	public function admin_index() {
@@ -129,7 +140,7 @@ class AlbumsController extends GalleryAppController {
 		$this->Album->recursive = -1;
 		$this->Album->Behaviors->attach('Containable');
 		$this->paginate = array(
-			'conditions' => array('Album.status' => 1),
+			'conditions' => array('Album.status' => CroogoStatus::PUBLISHED),
 			'contain' => array(
 				'Photo' => array(
 					'ThumbnailAsset',
@@ -151,6 +162,10 @@ class AlbumsController extends GalleryAppController {
 		$album = $this->Album->find('photos', array(
 			'slug' => $slug
 		));
+
+		if ($album['Album']['status'] == CroogoStatus::UNPUBLISHED) {
+			throw new NotFoundException(__d('gallery', 'Invalid album. Please try again.'));
+		}
 
 		if (isset($this->params['requested'])) {
 			return $album;

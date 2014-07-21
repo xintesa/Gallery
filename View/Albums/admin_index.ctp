@@ -66,7 +66,10 @@ $this->Html
 					$album['Album']['title'],
 					$this->Text->truncate($album['Album']['description'], 50),
 					$album['Album']['type'],
-					$this->Layout->status($album['Album']['status']),
+					$this->element('admin/toggle', array(
+						'id' => $album['Album']['id'],
+						'status' => (int)$album['Album']['status'],
+					)),
 					$this->Html->div('item-actions', implode(' ', $actions)),
 				);
 			}

@@ -17,6 +17,8 @@ class Album extends GalleryAppModel {
 
 	public $actsAs = array(
 		'Croogo.Params',
+		'Croogo.Publishable',
+		'Croogo.Trackable',
 		'Search.Searchable',
 	);
 
@@ -106,6 +108,26 @@ class Album extends GalleryAppModel {
 			}
 			return $results;
 		}
+	}
+
+	public function beforeSave($options = array()) {
+		$dateFields = array('created');
+		foreach ($dateFields as $dateField) {
+			if (!array_key_exists($dateField, $this->data[$this->alias])) {
+				continue;
+			}
+			if (empty($this->data[$this->alias][$dateField])) {
+				$db = $this->getDataSource();
+				$colType = array_merge(array(
+					'formatter' => 'date',
+					), $db->columns[$this->getColumnType($dateField)]
+				);
+				$this->data[$this->alias][$dateField] = call_user_func(
+					$colType['formatter'], $colType['format']
+				);
+			}
+		}
+		return true;
 	}
 
 }
