@@ -31,6 +31,26 @@ class PhotosController extends GalleryAppController {
 
 	public $presetVars = true;
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+
+		$noCsrf = array('admin_toggle');
+		if (in_array($this->action, $noCsrf) && $this->request->is('ajax')) {
+			$this->Security->csrfCheck = false;
+		}
+	}
+
+/**
+ * Toggle Photo status
+ *
+ * @param string $id Photo id
+ * @param integer $status Current Photo status
+ * @return void
+ */
+	public function admin_toggle($id = null, $status = null) {
+		$this->Croogo->fieldToggle($this->{$this->modelClass}, $id, $status);
+	}
+
 	public function admin_index() {
 		$searchFields = array(
 			'album_id' => array('type' => 'text'),

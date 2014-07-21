@@ -169,9 +169,9 @@ class Photo extends GalleryAppModel {
 				'recursive' => -1,
 				'fields' => array('*', 'Album.*'),
 				'conditions' => array(
-					'Photo.status' => true,
+					'Photo.status' => CroogoStatus::PUBLISHED,
 					'Album.slug' => $slug,
-					'Album.status' => true,
+					'Album.status' => CroogoStatus::PUBLISHED,
 				),
 				'joins' => array(
 					array(

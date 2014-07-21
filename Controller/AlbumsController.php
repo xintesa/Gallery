@@ -163,10 +163,6 @@ class AlbumsController extends GalleryAppController {
 			'slug' => $slug
 		));
 
-		if ($album['Album']['status'] == CroogoStatus::UNPUBLISHED) {
-			throw new NotFoundException(__d('gallery', 'Invalid album. Please try again.'));
-		}
-
 		if (isset($this->params['requested'])) {
 			return $album;
 		}
@@ -174,6 +170,10 @@ class AlbumsController extends GalleryAppController {
 		if (!count($album)) {
 			$this->Session->setFlash(__d('gallery','Invalid album. Please try again.'));
 			$this->redirect(array('action' => 'index'));
+		}
+
+		if ($album['Album']['status'] == CroogoStatus::UNPUBLISHED) {
+			throw new NotFoundException(__d('gallery', 'Invalid album. Please try again.'));
 		}
 
 		$this->set('title_for_layout', __d('gallery', 'Album %s', $album['Album']['title']));
@@ -213,7 +213,7 @@ class AlbumsController extends GalleryAppController {
 		$this->render(false);
 		Configure::write('debug', 0);
 
-		$this->request->data['Photo']['status'] = true;
+		$this->request->data['Photo']['status'] = CroogoStatus::PUBLISHED;
 		$this->request->data['Album'][] = array('album_id' => $id, 'master' => true);
 
 		$slug = $this->Album->field('slug', array('Album.id' => $id));
@@ -235,13 +235,13 @@ class AlbumsController extends GalleryAppController {
 		$this->autoRender = false;
 
 		if (!$id) {
-			echo json_encode(array('status' => 0, 'msg' => __d('gallery','Invalid photo. Please try again.'))); exit();
+			echo json_encode(array('status' => CroogoStatus::UNPUBLISHED, 'msg' => __d('gallery','Invalid photo. Please try again.'))); exit();
 		}
 
 		if ($this->Album->Photo->delete($id)) {
-			echo json_encode(array('status' => 1)); exit();
+			echo json_encode(array('status' => CroogoStatus::PUBLISHED)); exit();
 		} else {
-			echo json_encode(array('status' => 0,  'msg' => __d('gallery','Problem to remove photo. Please try again.'))); exit();
+			echo json_encode(array('status' => CroogoStatus::UNPUBLISHED,  'msg' => __d('gallery','Problem to remove photo. Please try again.'))); exit();
 		}
 	}
 

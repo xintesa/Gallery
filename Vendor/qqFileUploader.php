@@ -146,7 +146,7 @@ class qqFileUploader {
 			'title' => $this->file->getName(),
 			'slug' => Inflector::slug(strtolower($filename)),
 			'body' => $filename,
-			'status' => true,
+			'status' => CroogoStatus::PUBLISHED,
 			'sticky' => false,
 			'plugin' => 'Gallery',
 			'hash' => $hash,
