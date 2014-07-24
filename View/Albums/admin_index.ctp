@@ -64,7 +64,9 @@ $this->Html
 					$album['Album']['id'],
 					$album['Album']['position'],
 					$album['Album']['title'],
-					$this->Text->truncate($album['Album']['description'], 50),
+					$this->Text->truncate($album['Album']['description'], 50, array(
+						'html' => true
+					)),
 					$album['Album']['type'],
 					$this->element('admin/toggle', array(
 						'id' => $album['Album']['id'],

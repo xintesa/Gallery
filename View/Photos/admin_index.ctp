@@ -54,11 +54,14 @@ $this->assign('actions', ' ');
 					$photoAlbum['id'],
 				));
 			}
+
 			$rows[] = array(
 				$attachment['Photo']['id'],
 				$thumbnail,
 				$attachment['Photo']['title'],
-				$this->Text->truncate(strip_tags($attachment['Photo']['description']), 30),
+				$this->Text->truncate($attachment['Photo']['description'], 30, array(
+					'html' => true
+				)),
 				$attachment['Photo']['url'],
 				implode(', ', $albumLinks),
 				$this->element('admin/toggle', array(
