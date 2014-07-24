@@ -21,6 +21,7 @@ $this->assign('actions', ' ');
 			$this->Paginator->sort('description', __d('gallery', 'Description')),
 			$this->Paginator->sort('url', __d('gallery', 'url')),
 			__d('gallery', 'Albums'),
+			$this->Paginator->sort('status'),
 			__d('gallery', 'Actions'),
 		));
 		echo $tableHeaders;
@@ -60,6 +61,10 @@ $this->assign('actions', ' ');
 				$this->Text->truncate(strip_tags($attachment['Photo']['description']), 30),
 				$attachment['Photo']['url'],
 				implode(', ', $albumLinks),
+				$this->element('admin/toggle', array(
+					'id' => $attachment['Photo']['id'],
+					'status' => (int)$attachment['Photo']['status'],
+				)),
 				$this->Html->div('item-actions', implode(' ', $actions))
 			);
 		}

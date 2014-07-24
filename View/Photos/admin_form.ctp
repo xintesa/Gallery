@@ -33,23 +33,22 @@ echo $this->Form->create('Photo', array(
 
 				echo $this->Form->input('Album');
 				$this->Form->inputDefaults(array(
-					'label' => false,
 					'class' => 'span10',
 				));
 				echo $this->Form->input('title', array(
-					'placeholder' => __d('gallery', 'Title'),
+					'label' => __d('gallery', 'Title'),
 				));
 				echo $this->Form->input('description', array(
-					'placeholder' => __d('gallery', 'Description'),
+					'label' => __d('gallery', 'Description'),
 				));
 				echo $this->Form->input('url', array(
-					'placeholder' => __d('gallery', 'Url'),
+					'label' => __d('gallery', 'Url'),
 				));
 				echo $this->Form->input('params', array(
-					'placeholder' => __d('gallery', 'Params'),
+					'label' => __d('gallery', 'Params'),
 				));
 				echo $this->Form->input('weight', array(
-					'placeholder' => __d('gallery', 'Weight'),
+					'label' => __d('gallery', 'Weight'),
 				));
 			?>
 			</div>
@@ -65,8 +64,11 @@ echo $this->Form->create('Photo', array(
 			$this->Html->link(__d('gallery', 'Cancel'), array('controller' => 'photos', 'action' => 'index'), array('button' => 'danger')) .
 
 			$this->Form->input('status', array(
-				'label' => __d('gallery', 'Status'),
+				'legend' => false,
+				'type' => 'radio',
 				'class' => false,
+				'default' => CroogoStatus::UNPUBLISHED,
+				'options' => $this->Croogo->statuses(),
 			)) .
 
 			$this->Form->input('created', array(
@@ -74,6 +76,17 @@ echo $this->Form->create('Photo', array(
 				'placeholder' => __d('gallery', 'Created'),
 				'readonly' => true,
 			)) .
+
+			$this->Html->div('input-daterange',
+				$this->Form->input('publish_start', array(
+					'label' => __d('croogo', 'Publish Start'),
+					'type' => 'text',
+				)) .
+				$this->Form->input('publish_end', array(
+					'label' => __d('croogo', 'Publish End'),
+					'type' => 'text',
+				))
+			) .
 
 			$this->Html->endBox();
 

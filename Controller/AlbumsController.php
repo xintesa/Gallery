@@ -37,10 +37,21 @@ class AlbumsController extends GalleryAppController {
 		$this->jslibs = Galleries::activeLibs();
 		parent::beforeFilter();
 
-		$noCsrf = array('admin_upload_photo', 'admin_delete_photo');
+		$noCsrf = array('admin_upload_photo', 'admin_delete_photo', 'admin_toggle');
 		if (in_array($this->action, $noCsrf) && $this->request->is('ajax')) {
 			$this->Security->csrfCheck = false;
 		}
+	}
+
+/**
+ * Toggle Album status
+ *
+ * @param string $id Album id
+ * @param integer $status Current Album status
+ * @return void
+ */
+	public function admin_toggle($id = null, $status = null) {
+		$this->Croogo->fieldToggle($this->{$this->modelClass}, $id, $status);
 	}
 
 	public function admin_index() {
@@ -129,7 +140,7 @@ class AlbumsController extends GalleryAppController {
 		$this->Album->recursive = -1;
 		$this->Album->Behaviors->attach('Containable');
 		$this->paginate = array(
-			'conditions' => array('Album.status' => 1),
+			'conditions' => array('Album.status' => CroogoStatus::PUBLISHED),
 			'contain' => array(
 				'Photo' => array(
 					'ThumbnailAsset',
@@ -159,6 +170,10 @@ class AlbumsController extends GalleryAppController {
 		if (!count($album)) {
 			$this->Session->setFlash(__d('gallery','Invalid album. Please try again.'));
 			$this->redirect(array('action' => 'index'));
+		}
+
+		if ($album['Album']['status'] == CroogoStatus::UNPUBLISHED) {
+			throw new NotFoundException(__d('gallery', 'Invalid album. Please try again.'));
 		}
 
 		$this->set('title_for_layout', __d('gallery', 'Album %s', $album['Album']['title']));
@@ -198,7 +213,7 @@ class AlbumsController extends GalleryAppController {
 		$this->render(false);
 		Configure::write('debug', 0);
 
-		$this->request->data['Photo']['status'] = true;
+		$this->request->data['Photo']['status'] = CroogoStatus::PUBLISHED;
 		$this->request->data['Album'][] = array('album_id' => $id, 'master' => true);
 
 		$slug = $this->Album->field('slug', array('Album.id' => $id));
@@ -220,13 +235,13 @@ class AlbumsController extends GalleryAppController {
 		$this->autoRender = false;
 
 		if (!$id) {
-			echo json_encode(array('status' => 0, 'msg' => __d('gallery','Invalid photo. Please try again.'))); exit();
+			echo json_encode(array('status' => CroogoStatus::UNPUBLISHED, 'msg' => __d('gallery','Invalid photo. Please try again.'))); exit();
 		}
 
 		if ($this->Album->Photo->delete($id)) {
-			echo json_encode(array('status' => 1)); exit();
+			echo json_encode(array('status' => CroogoStatus::PUBLISHED)); exit();
 		} else {
-			echo json_encode(array('status' => 0,  'msg' => __d('gallery','Problem to remove photo. Please try again.'))); exit();
+			echo json_encode(array('status' => CroogoStatus::UNPUBLISHED,  'msg' => __d('gallery','Problem to remove photo. Please try again.'))); exit();
 		}
 	}
 
