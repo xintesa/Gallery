@@ -83,4 +83,3 @@ options=$params",
 		$controller->Setting->deleteKey('Gallery.jslibs');
 	}
 }
-?>
