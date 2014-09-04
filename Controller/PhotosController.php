@@ -53,9 +53,15 @@ class PhotosController extends GalleryAppController {
 
 	public function admin_index() {
 		$searchFields = array(
-			'album_id' => array('type' => 'text'),
+			'title' => array('type' => 'text'),
 			'description' => array('type' => 'text'),
-			'status',
+			'status' => array('type' => 'radio',
+				'legend' => false,
+				'options' => array(
+					0 => 'Unpublished',
+					1 => 'Published',
+				)
+			),
 			'url',
 		);
 		$this->Prg->commonProcess();
@@ -77,7 +83,7 @@ class PhotosController extends GalleryAppController {
 		$this->Photo->id = $id;
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Photo->save($this->request->data)) {
-				$this->Session->setFlash(__d('gallery', 'Photo has been saved.'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('gallery', 'Photo has been saved.'), 'flash', array('class' => 'success'));
 				$this->Croogo->redirect(array('action' => 'edit', $id));
 			} else {
 				$this->Session->setFlash(__d('gallery', 'Photo cannot be saved.'));
@@ -92,18 +98,18 @@ class PhotosController extends GalleryAppController {
 
 	public function admin_moveup($id, $step = 1) {
 		if ($this->Photo->AlbumsPhoto->moveUp($id, $step)) {
-			$this->Session->setFlash(__d('gallery', 'Moved up successfully'), 'default', array('class' => 'success'));
+			$this->Session->setFlash(__d('gallery', 'Moved up successfully'), 'flash', array('class' => 'success'));
 		} else {
-			$this->Session->setFlash(__d('gallery', 'Could not move up'), 'default', array('class' => 'error'));
+			$this->Session->setFlash(__d('gallery', 'Could not move up'), 'flash', array('class' => 'error'));
 		}
 		$this->redirect($this->referer());
 	}
 
 	public function admin_movedown($id, $step = 1) {
 		if ($this->Photo->AlbumsPhoto->moveDown($id, $step)) {
-			$this->Session->setFlash(__d('gallery', 'Moved down successfully'), 'default', array('class' => 'success'));
+			$this->Session->setFlash(__d('gallery', 'Moved down successfully'), 'flash', array('class' => 'success'));
 		} else {
-			$this->Session->setFlash(__d('gallery', 'Could not move down'), 'default', array('class' => 'error'));
+			$this->Session->setFlash(__d('gallery', 'Could not move down'), 'flash', array('class' => 'error'));
 		}
 		$this->redirect($this->referer());
 	}
