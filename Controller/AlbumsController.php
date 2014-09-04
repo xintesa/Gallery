@@ -90,10 +90,10 @@ class AlbumsController extends GalleryAppController {
 			$this->request->data['Album']['position'] = $position[0][0]['position'] + 1;
 
 			if ($this->Album->save($this->request->data)) {
-				$this->Session->setFlash(__d('gallery', 'Album is saved.'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('gallery', 'Album is saved.'), 'flash', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__d('gallery','Album could not be saved. Please try again.'));
+				$this->Session->setFlash(__d('gallery', 'Album could not be saved. Please try again.'), 'flash', array('class' => 'error'));
 			}
 		}
 		$this->set('types', $this->jslibs);
@@ -101,15 +101,15 @@ class AlbumsController extends GalleryAppController {
 
 	function admin_edit($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__d('gallery', 'Invalid album.'));
+			$this->Session->setFlash(__d('gallery', 'Invalid album.'), 'flash');
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->request->data)) {
 			if ($this->Album->save($this->request->data)) {
-				$this->Session->setFlash(__d('gallery', 'Album is saved.'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('gallery', 'Album has been saved.'), 'flash', array('class' => 'success'));
 				$this->Croogo->redirect(array('action' => 'edit', $id));
 			} else {
-				$this->Session->setFlash(__d('gallery','Album could not be saved. Please try again.'));
+				$this->Session->setFlash(__d('gallery', 'Album could not be saved. Please try again.'), 'flash', array('class' => 'error'));
 			}
 		}
 
@@ -119,7 +119,7 @@ class AlbumsController extends GalleryAppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__d('gallery','Invalid ID for album.'));
+			$this->Session->setFlash(__d('gallery','Invalid ID for album.'), 'flash', array('class' => 'error'));
 			$this->redirect(array('action' => 'index'));
 		} else {
 			$ssluga = $this->Album->findById($id);
@@ -128,7 +128,7 @@ class AlbumsController extends GalleryAppController {
 			$dir  = WWW_ROOT . 'img' . DS . $sslug;
 		}
 		if ($this->Album->delete($id, true)) {
-			$this->Session->setFlash(__d('gallery','Album is deleted, and whole directory with images.'));
+			$this->Session->setFlash(__d('gallery', 'Album is deleted, and whole directory with images.'), 'flash', array('class' => 'error'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->render(false);
@@ -155,7 +155,7 @@ class AlbumsController extends GalleryAppController {
 
 	public function view($slug = null) {
 		if (!$slug) {
-			$this->Session->setFlash(__d('gallery','Invalid album. Please try again.'));
+			$this->Session->setFlash(__d('gallery', 'Invalid album. Please try again.'), array('class' => 'error'));
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -168,7 +168,7 @@ class AlbumsController extends GalleryAppController {
 		}
 
 		if (!count($album)) {
-			$this->Session->setFlash(__d('gallery','Invalid album. Please try again.'));
+			$this->Session->setFlash(__d('gallery', 'Invalid album. Please try again.'), 'flash', array('class' => 'error'));
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -182,7 +182,7 @@ class AlbumsController extends GalleryAppController {
 
 	public function admin_upload($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__d('gallery','Invalid album. Please try again.'));
+			$this->Session->setFlash(__d('gallery', 'Invalid album. Please try again.'), 'flash', array('class' => 'error'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('title_for_layout',__d('gallery',"Manage your photos in album"));
@@ -226,7 +226,11 @@ class AlbumsController extends GalleryAppController {
 
 	public function admin_reset_weight($id = null) {
 		$this->Album->id = $id;
-		$this->Album->AlbumsPhoto->resetWeights();
+		if ($this->Album->AlbumsPhoto->resetWeights()) {
+			$this->Session->setFlash(__d('gallery', 'Weight have been reset'), 'flash', array('class' => 'success'));
+		} else {
+			$this->Session->setFlash(__d('gallery', 'Unable to reset weight'), 'flash', array('class' => 'error'));
+		}
 		$this->redirect($this->referer());
 	}
 

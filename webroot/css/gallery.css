@@ -28,19 +28,6 @@
 	background-color: inherit;
 }
 
-#return {
-	margin-left: 0;
-}
-
-.album-photo {
-	padding: 10px 5px;
-}
-
-.album-photo.hover,
-.album-photo:hover {
-	background: #f0f0f0;
-}
-
 .album-photo img {
 	float: left;
 	margin-bottom: 10px;
@@ -52,7 +39,25 @@
 	white-space: nowrap;
 }
 
-.photo-actions {
-	text-align: right;
-	float: right;
+#return {
+	display: table;
+	padding: 0;
+}
+
+.album-photo {
+	display: table-row;
+}
+
+.album-photo.hover,
+.album-photo:hover {
+	background: #f0f0f0;
+}
+
+.album-photo .preview,
+.album-photo .path,
+.album-photo .description,
+.album-photo .photo-actions {
+	display: table-cell;
+	padding: 10px 5px;
+	vertical-align: top;
 }

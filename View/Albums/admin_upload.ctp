@@ -1,6 +1,16 @@
 <?php
 
-$this->extend('/Common/admin_edit');
+$this->extend('/Common/admin_index');
+
+$this->Html->css('/gallery/css/fileuploader', array('inline' => false));
+
+$thumbnailClass = $this->Layout->cssClass('thumbnailClass');
+$iPrefix = $this->Html->settings['iconDefaults']['classPrefix'];
+$iDefault = $this->Html->settings['iconDefaults']['classDefault'];
+$iDelete = "$iDefault " . $iPrefix . $_icons['delete'];
+$iEdit = "$iDefault " . $iPrefix . $_icons['update'];
+$iMoveUp = "$iDefault " . $iPrefix . $_icons['move-up'];
+$iMoveDown = "$iDefault " . $iPrefix . $_icons['move-down'];
 
 $editUrl = $this->Html->link($album['Album']['title'], array(
 	'plugin' => 'gallery',
@@ -45,85 +55,78 @@ $this->start('actions');
 	);
 $this->end();
 
+$rowClass = $this->Layout->cssClass('row');
+$columnFull = $this->Layout->cssClass('columnFull');
+
+$photos = array();
+if (isset($album['Photo'])):
+	$photos = $album['Photo'];
+endif;
+
+$this->append('contents');
 ?>
-<div class="row-fluid">
+	<div id="upload" class="<?php echo $columnFull; ?>"></div>
+	<div id="return" class="<?php echo $columnFull; ?>">
 
-	<div id="upload" class="span12">
-	</div>
-	<div id="return" class="span12">
-
-		<?php if(isset($album['Photo'])): ?>
-
-			<?php foreach($album['Photo'] as $photo): ?>
-				<div class="album-photo clearfix">
-					<div class="span3">
-					<?php
-					echo $this->Html->link(
-						$this->Html->image($photo['ThumbnailAsset']['path'], array('class' => 'img-polaroid')),
-						$photo['LargeAsset']['path'],
-						array(
-							'rel' => 'gallery-' . $photo['AlbumsPhoto']['album_id'],
-							'class' => 'thickbox',
-							'escape' => false,
-						)
-					);
-					?>
-					</div>
-
-					<div class="path span6">
-					<?php
-						$filename = basename($photo['LargeAsset']['path']);
-						$filename = $this->Html->link(
-							$this->Text->truncate($filename, 120),
-							$photo['OriginalAsset']['path'],
-							array('target' => '_blank', 'title' => $filename)
-						);
-						echo __d('gallery', 'Filename: %s', $filename);
-					?>
-					</div>
-
-					<?php if (!empty($photo['title'])): ?>
-					<div class="description">
-						<?php echo $this->Html->tag('strong', $this->Text->truncate(strip_tags($photo['title']), 100)); ?>
-						<br />
-						<?php echo $this->Text->truncate(strip_tags($photo['description']), 120); ?></div>
-					<?php endif; ?>
-
-					<?php echo $this->element('Gallery.admin/album_actions', array('photo' => $photo)); ?>
+		<?php foreach($album['Photo'] as $photo): ?>
+			<div class="album-photo">
+				<div class="preview">
+				<?php
+				echo $this->Html->link(
+					$this->Html->thumbnail($photo['ThumbnailAsset']['path']),
+					$photo['LargeAsset']['path'],
+					array(
+						'rel' => 'gallery-' . $photo['AlbumsPhoto']['album_id'],
+						'class' => 'thickbox',
+						'escape' => false,
+					)
+				);
+				?>
 				</div>
-				<?php endforeach; ?>
-			<?php endif; ?>
+
+				<div class="path">
+				<?php
+					$filename = basename($photo['LargeAsset']['path']);
+					$filename = $this->Html->link(
+						$this->Text->truncate($filename, 120),
+						$photo['OriginalAsset']['path'],
+						array('target' => '_blank', 'title' => $filename)
+					);
+					echo __d('gallery', 'Filename: %s', $filename);
+				?>
+				</div>
+
+				<?php if (!empty($photo['title'])): ?>
+				<div class="description">
+					<?php echo $this->Html->tag('strong', $this->Text->truncate(strip_tags($photo['title']), 100)); ?>
+					<br />
+					<?php echo $this->Text->truncate(strip_tags($photo['description']), 120); ?></div>
+				<?php endif; ?>
+
+				<?php echo $this->element('Gallery.admin/album_actions', array('photo' => $photo)); ?>
+			</div>
+			<?php endforeach; ?>
+
 	</div>
 
-	<div class='pagelist' style='text-align: center;'>
-	<?php echo $this->Html->link('prev ', '#', array(
-		'class' => 'gallery-prev',
-	));
-	?>
-	<span id='count'></span>
-	|
-	<span id='total'></span>
-	<?php echo $this->Html->link(' next', '#', array(
-		'class' => 'gallery-next',
-		)
-	);
-	?>
-	</div>
+<?php
+$this->end();
 
-</div>
-<?php echo $this->Html->script('/gallery/js/fileuploader', false);  echo $this->Html->css('/gallery/css/fileuploader', false); ?>
+$this->Html->script('/gallery/js/fileuploader', array('block' => 'scriptBottom'));
+$this->append('page-footer');
+?>
 <script>
 function createUploader(){
 	var containerTemplate = _.template(
-		'<div class="album-photo clearfix">' +
-		'	<div class="span3">' +
-		'		<a class="thickbox" rel="gallery-<%= Photo.album_id %>"' +
+		'<div class="album-photo">' +
+		'	<div class="preview">' +
+		'		<a class="thickbox" rel="gallery-<%= Album[0].id %>"' +
 		'			href="<%= LargeAsset.path %>">' +
-		'			<img src="<%= ThumbnailAsset.path %>" class="img-polaroid">' +
+		'			<img src="<%= ThumbnailAsset.path %>" class="<?php echo $thumbnailClass; ?>">' +
 		'		</a>' +
 		'	</div>' +
 
-		'	<div class="path span6">' +
+		'	<div class="path">' +
 		'		Filename: ' +
 		'		<a target="_blank" title="<%= OriginalAsset.path %>"' +
 		'			href="<%= OriginalAsset.path %>">' +
@@ -131,11 +134,10 @@ function createUploader(){
 		'		</a>' +
 		'	</div>' +
 
-		'	<div class="photo-actions span3">' +
-		'		<a class="remove" href="javascript:void(0);" rel="<%= Photo.id %>"><i class="icon-trash icon-small"></i> <%= sRemove %></a>' +
-		'		<a class="edit" href="/admin/gallery/photos/edit/<%= Photo.id %>"><i class="icon-edit icon-small"></i> <%= sEdit %></a>' +
-		'		<a class="up" href="/admin/gallery/photos/moveup/<%= Photo.id %>"><i class="icon-chevron-up icon-small"></i> <%= sUp %></a>' +
-		'		<a class="down" href="/admin/gallery/photos/movedown/<%= Photo.id %>"><i class="icon-chevron-down icon-small"></i> <%= sDown %></a>' +
+		'	<div class="photo-actions">' +
+		'		<a class="edit" href="/admin/gallery/photos/edit/<%= Photo.id %>"><i class="<?php echo $iEdit; ?>"></i> <%= sEdit %></a>' +
+		'		<a class="up" href="/admin/gallery/photos/moveup/<%= Photo.id %>"><i class="<?php echo $iMoveUp; ?>"></i> <%= sUp %></a>' +
+		'		<a class="down" href="/admin/gallery/photos/movedown/<%= Photo.id %>"><i class="<?php echo $iMoveDown; ?>"></i> <%= sDown %></a>' +
 		'	</div>' +
 		'</div>'
 	);
@@ -153,6 +155,7 @@ function createUploader(){
 			var sDown = '<?php echo __d('gallery', 'down'); ?>';
 			var args = {
 				Photo: json.Photo,
+				Album: json.Album,
 				OriginalAsset: json.OriginalAsset,
 				ThumbnailAsset: json.ThumbnailAsset,
 				LargeAsset: json.LargeAsset,
@@ -171,7 +174,7 @@ function createUploader(){
 // don't wait for the window to load
 $(function(){
 	createUploader();
-	$('.remove').live('click', function(){
+	$('.remove').on('click', function(){
 		var obj = $(this);
 		var url = '<?php echo $this->Html->url('/admin/gallery/albums/delete_photo/');?>'+obj.attr('rel');
 		$.ajax(url, {
@@ -192,3 +195,6 @@ $(function(){
 });
 
 </script>
+<?php
+
+$this->end();

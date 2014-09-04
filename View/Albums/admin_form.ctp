@@ -12,10 +12,14 @@ if (empty($this->data['Album']['title'])) {
 } else {
 	$this->Html->addCrumb($this->data['Album']['title'], $this->here);
 }
-?>
 
-<?php $this->start('actions'); ?>
-	<?php
+$inputDefaults = $this->Form->settings;
+$inputClass = isset($inputDefaults['class']) ? $inputDefaults['class'] : null;
+if (empty($inputClass)):
+	$inputClass = $this->Layout->cssClass('formInput');
+endif;
+
+$this->start('actions');
 	if (!empty($this->data['Album']['title'])):
 		echo $this->Html->link(__d('gallery','Photos'),
 			array('action'=>'upload', $this->data['Album']['id']),
@@ -25,72 +29,58 @@ if (empty($this->data['Album']['title'])) {
 			))
 		);
 	endif;
-	?>
-<?php $this->end(); ?>
+$this->end();
 
-<?php echo $this->Form->create('Album');?>
+$this->append('form-start', $this->Form->create('Album'));
 
-<div class="row-fluid">
-	<div class="span8">
+$this->append('tab-heading');
+	echo $this->Croogo->adminTab(__d('gallery', 'Album'), "#album-main");
+	echo $this->Croogo->adminTab(__d('gallery', 'Settings'), '#album-settings');
+	echo $this->Croogo->adminTabs();
+$this->end();
 
-		<ul class="nav nav-tabs">
-			<li><a href="#album-main" data-toggle="tab"><?php echo __d('gallery', 'Album'); ?></a></li>
-			<li><a href="#album-settings" data-toggle="tab"><?php echo __d('gallery', 'Settings'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
-		</ul>
+$this->append('tab-content');
+	echo $this->Html->tabStart('album-main') .
+		$this->Form->input('id') .
+		$this->Form->input('title', array(
+			'label' => __d('gallery', 'Title')
+		)) .
+		$this->Form->input('slug', array(
+			'label' => __d('gallery', 'Slug'),
+		)) .
+		$this->Form->input('description', array(
+			'label' => __d('gallery', 'Description'),
+		)) .
+		$this->Form->input('type', array(
+			'label' => __d('gallery', 'Type'),
+			'empty' => true,
+			'default' => key($types),
+		));
+	echo $this->Html->tabEnd();
 
-		<div class="tab-content">
-			<div id='album-main' class="tab-pane">
-			<?php
-				$this->Form->inputDefaults(array(
-					'class' => 'span10',
-				));
-				echo $this->Form->input('id');
-				echo $this->Form->input('title', array(
-					'label' => __d('gallery', 'Title')
-				));
-				echo $this->Form->input('slug', array(
-					'label' => __d('gallery', 'Slug'),
-				));
-				echo $this->Form->input('description', array(
-					'label' => __d('gallery', 'Description'),
-				));
-				echo $this->Form->input('type', array(
-					'label' => __d('gallery', 'Type'),
-					'empty' => true,
-					'default' => key($types),
-				));
-			?>
-			</div>
+	echo $this->Html->tabStart('album-settings') .
+		$this->Form->input('quality', array(
+			'label' => __d('gallery', 'Quality'),
+		)) .
+		$this->Form->input('max_width', array(
+			'label' => __d('gallery', 'Max. width'),
+		)) .
+		$this->Form->input('max_height', array(
+			'label' => __d('gallery', 'Max. height'),
+		)) .
+		$this->Form->input('max_width_thumbnail', array(
+			'label' => __d('gallery', 'Max. thumbnail width'),
+		)) .
+		$this->Form->input('max_height_thumbnail', array(
+			'label' => __d('gallery', 'Max. thumbnail height'),
+		)) .
+		$this->Form->input('params', array(
+			'label' => __d('gallery', 'Parameters'),
+		));
+	echo $this->Html->tabEnd();
+$this->end();
 
-			<div id='album-settings' class="tab-pane">
-			<?php
-				echo $this->Form->input('quality', array(
-					'label' => __d('gallery', 'Quality'),
-				));
-				echo $this->Form->input('max_width', array(
-					'label' => __d('gallery', 'Max. width'),
-				));
-				echo $this->Form->input('max_height', array(
-					'label' => __d('gallery', 'Max. height'),
-				));
-				echo $this->Form->input('max_width_thumbnail', array(
-					'label' => __d('gallery', 'Max. thumbnail width'),
-				));
-				echo $this->Form->input('max_height_thumbnail', array(
-					'label' => __d('gallery', 'Max. thumbnail height'),
-				));
-				echo $this->Form->input('params', array(
-					'label' => __d('gallery', 'Parameters'),
-				));
-			?>
-			</div>
-
-		</div>
-	</div>
-
-	<div class="span4">
-	<?php
+$this->append('panels');
 		echo $this->Html->beginBox(__d('gallery', 'Publishing')) .
 			$this->Form->button(__d('gallery', 'Apply'), array('name' => 'apply', 'button' => 'default')) .
 			$this->Form->button(__d('gallery', 'Save'), array('button' => 'success')) .
@@ -106,7 +96,7 @@ if (empty($this->data['Album']['title'])) {
 
 			$this->Form->input('created', array(
 				'type' => 'text',
-				'class' => 'span10 input-datetime',
+				'class' => 'input-datetime ' . trim($inputClass)
 			)) .
 
 			$this->Html->div('input-daterange',
@@ -123,7 +113,6 @@ if (empty($this->data['Album']['title'])) {
 		echo $this->Html->endBox();
 
 		echo $this->Croogo->adminBoxes();
-	?>
-	</div>
-</div>
-<?php echo $this->Form->end(); ?>
+$this->end();
+
+$this->append('form-end', $this->Form->end());

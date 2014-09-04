@@ -2,7 +2,7 @@
 
 $this->extend('/Common/admin_edit');
 
-$title = $this->data['Photo']['title'] ? $this->data['Photo']['title'] : basename($this->data['Photo']['original']);
+$title = $this->data['Photo']['title'] ? $this->data['Photo']['title'] : $this->data['Photo']['id'];
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
@@ -10,98 +10,85 @@ $this->Html
 	->addCrumb(__d('gallery', 'Photos'), array('admin' => true, 'plugin' => 'gallery', 'controller' => 'photos', 'action' => 'index'))
 	->addCrumb($title, $this->here);
 
-echo $this->Form->create('Photo', array(
+$this->append('form-start', $this->Form->create('Photo', array(
 	'url' => array(
 		'controller' => 'photos',
 		'action' => 'edit',
 	),
-));
+)));
 
-?>
-<div class="row-fluid">
-	<div class="span8">
+$this->append('tab-heading');
+	echo $this->Croogo->adminTab(__d('gallery', 'Photo'), '#photo-main');
+	echo $this->Croogo->adminTabs();
+$this->end();
 
-		<ul class="nav nav-tabs">
-			<li><a href="#photo-main" data-toggle="tab"><?php echo __d('gallery', 'Photo'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
-		</ul>
+$this->append('tab-content');
+	echo $this->Html->tabStart('photo-main') .
+		$this->Form->input('id') .
+		$this->Form->input('Album') .
+		$this->Form->input('title', array(
+			'label' => __d('gallery', 'Title'),
+		)) .
+		$this->Form->input('description', array(
+			'label' => __d('gallery', 'Description'),
+		)) .
+		$this->Form->input('url', array(
+			'label' => __d('gallery', 'Url'),
+		)) .
+		$this->Form->input('params', array(
+			'label' => __d('gallery', 'Params'),
+		)) .
+		$this->Form->input('weight', array(
+			'label' => __d('gallery', 'Weight'),
+		));
+	echo $this->Html->tabEnd();
+	echo $this->Croogo->adminTabs();
+$this->end();
 
-		<div class="tab-content">
-			<div id="photo-main" class="tab-pane">
-			<?php
-				echo $this->Form->input('id');
+$this->append('panels');
+	echo $this->Html->beginBox(__d('gallery', 'Publishing')) .
+		$this->Form->button(__d('gallery', 'Apply'), array('name' => 'apply')) .
+		$this->Form->button(__d('gallery', 'Save'), array('button' => 'primary')) .
+		$this->Html->link(__d('gallery', 'Cancel'), array('controller' => 'photos', 'action' => 'index'), array('button' => 'danger')) .
 
-				echo $this->Form->input('Album');
-				$this->Form->inputDefaults(array(
-					'class' => 'span10',
-				));
-				echo $this->Form->input('title', array(
-					'label' => __d('gallery', 'Title'),
-				));
-				echo $this->Form->input('description', array(
-					'label' => __d('gallery', 'Description'),
-				));
-				echo $this->Form->input('url', array(
-					'label' => __d('gallery', 'Url'),
-				));
-				echo $this->Form->input('params', array(
-					'label' => __d('gallery', 'Params'),
-				));
-				echo $this->Form->input('weight', array(
-					'label' => __d('gallery', 'Weight'),
-				));
-			?>
-			</div>
-			<?php echo $this->Croogo->adminTabs(); ?>
-		</div>
-	</div>
+		$this->Form->input('status', array(
+			'legend' => false,
+			'type' => 'radio',
+			'class' => false,
+			'default' => CroogoStatus::UNPUBLISHED,
+			'options' => $this->Croogo->statuses(),
+		)) .
 
-	<div class="span4">
-	<?php
-		echo $this->Html->beginBox(__d('gallery', 'Publishing')) .
-			$this->Form->button(__d('gallery', 'Apply'), array('name' => 'apply', 'button' => 'default')) .
-			$this->Form->button(__d('gallery', 'Save'), array('button' => 'primary')) .
-			$this->Html->link(__d('gallery', 'Cancel'), array('controller' => 'photos', 'action' => 'index'), array('button' => 'danger')) .
+		$this->Form->input('created', array(
+			'type' => 'text',
+			'placeholder' => __d('gallery', 'Created'),
+			'readonly' => true,
+		)) .
 
-			$this->Form->input('status', array(
-				'legend' => false,
-				'type' => 'radio',
-				'class' => false,
-				'default' => CroogoStatus::UNPUBLISHED,
-				'options' => $this->Croogo->statuses(),
-			)) .
-
-			$this->Form->input('created', array(
+		$this->Html->div('input-daterange',
+			$this->Form->input('publish_start', array(
+				'label' => __d('croogo', 'Publish Start'),
 				'type' => 'text',
-				'placeholder' => __d('gallery', 'Created'),
-				'readonly' => true,
 			)) .
+			$this->Form->input('publish_end', array(
+				'label' => __d('croogo', 'Publish End'),
+				'type' => 'text',
+			))
+		);
 
-			$this->Html->div('input-daterange',
-				$this->Form->input('publish_start', array(
-					'label' => __d('croogo', 'Publish Start'),
-					'type' => 'text',
-				)) .
-				$this->Form->input('publish_end', array(
-					'label' => __d('croogo', 'Publish End'),
-					'type' => 'text',
-				))
-			) .
+	echo $this->Html->endBox();
 
-			$this->Html->endBox();
+	echo $this->Html->beginBox(__d('gallery', 'Preview')) .
+		$this->Html->link(
+			$this->Html->image($this->data['ThumbnailAsset']['path'], array(
+				'class' => 'img-polaroid',
+			)),
+			$this->data['LargeAsset']['path'],
+			array('class' => 'thickbox', 'escape' => false)
+		) .
+		$this->Html->endBox();
 
-		echo $this->Html->beginBox(__d('gallery', 'Preview')) .
-			$this->Html->link(
-				$this->Html->image($this->data['ThumbnailAsset']['path'], array(
-					'class' => 'img-polaroid',
-				)),
-				$this->data['LargeAsset']['path'],
-				array('class' => 'thickbox', 'escape' => false)
-			) .
-			$this->Html->endBox();
+	echo $this->Croogo->adminBoxes();
+$this->end();
 
-		echo $this->Croogo->adminBoxes();
-	?>
-	</div>
-</div>
-<?php echo $this->Form->end(); ?>
+$this->append('form-end' , $this->Form->end());
