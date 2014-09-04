@@ -1,11 +1,10 @@
-<div class="photo-actions span3">
+<div class="photo-actions">
 <?php
 	echo $this->Form->postLink(__d('gallery', 'remove'), 'javascript:;',
 		array(
 			'rel' => $photo['id'],
-			'class' => 'remove',
-			'icon' => 'trash',
-			'iconSize' => 'small',
+			'class' => 'remove red',
+			'icon' => $_icons['delete'],
 		)
 	);
 ?>
@@ -17,8 +16,7 @@
 		$photo['id'],
 	), array(
 		'class' => 'edit',
-		'icon' => 'edit',
-		'iconSize' => 'small',
+		'icon' => $_icons['update'],
 	));
 
 ?>
@@ -30,8 +28,7 @@
 		$photo['AlbumsPhoto']['id'],
 	), array(
 		'class' => 'up',
-		'icon' => 'chevron-up',
-		'iconSize' => 'small',
+		'icon' => $_icons['move-up'],
 	));
 ?>
 
@@ -42,8 +39,7 @@
 		$photo['AlbumsPhoto']['id'],
 	), array(
 		'class' => 'down',
-		'icon' => 'chevron-down',
-		'iconSize' => 'small',
+		'icon' => $_icons['move-down'],
 	));
 ?>
 </div>
