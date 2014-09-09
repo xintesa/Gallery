@@ -14,7 +14,7 @@ class Galleries {
 	);
 
 	public static function activeLibs() {
-		$availableLibs = json_decode(Configure::read('Gallery.jslibs'));
+		$availableLibs = (array)json_decode(Configure::read('Gallery.jslibs'));
 		$jslibs = array_fill_keys($availableLibs, true);
 		return array_intersect_key(Galleries::$supportedLibs, $jslibs);
 	}
