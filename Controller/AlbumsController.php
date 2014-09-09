@@ -143,7 +143,7 @@ class AlbumsController extends GalleryAppController {
 			'conditions' => array('Album.status' => CroogoStatus::PUBLISHED),
 			'contain' => array(
 				'Photo' => array(
-					'ThumbnailAsset',
+					'ThumbnailAsset', 'LargeAsset', 'OriginalAsset',
 				),
 			),
 			'limit' => Configure::read('Gallery.album_limit_pagination'),

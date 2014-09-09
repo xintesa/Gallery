@@ -63,7 +63,7 @@ if (isset($album['Photo'])):
 	$photos = $album['Photo'];
 endif;
 
-$this->append('contents');
+$this->append('main');
 ?>
 	<div id="upload" class="<?php echo $columnFull; ?>"></div>
 	<div id="return" class="<?php echo $columnFull; ?>">
