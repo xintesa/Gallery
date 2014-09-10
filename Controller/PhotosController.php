@@ -96,6 +96,44 @@ class PhotosController extends GalleryAppController {
 		$this->set(compact('albums'));
 	}
 
+	public function index($slug = null) {
+		$this->set('title_for_layout',__d('gallery', "Photos"));
+
+		if (!$slug) {
+			$this->Session->setFlash(__d('gallery', 'Invalid album. Please try again.'), 'flash' , array('class' => 'error'));
+			$this->redirect(array('controller' => 'albums', 'action' => 'index'));
+		}
+		$this->AlbumsPhoto = ClassRegistry::init('Gallery.AlbumsPhoto');
+		$this->Album = ClassRegistry::init('Gallery.Album');
+
+		$this->Photo->recursive = -1;
+		$this->Photo->Behaviors->attach('Containable');
+		$this->paginate = array(
+			'fields' => array('*', 'Album.*'),
+			'conditions' => array(
+				'Photo.status' => CroogoStatus::PUBLISHED,
+				'Album.slug' => $slug,
+				'Album.status' => CroogoStatus::PUBLISHED
+			),
+			'contain' => array('ThumbnailAsset', 'LargeAsset', 'OriginalAsset'),
+			'joins' => array(
+				array(
+					'alias' => $this->AlbumsPhoto->alias,
+					'table' => $this->AlbumsPhoto->useTable,
+					'conditions' => 'Photo.id = AlbumsPhoto.photo_id'
+				),
+				array(
+					'alias' => $this->Album->alias,
+					'table' => $this->Album->useTable,
+					'conditions' => 'Album.id = AlbumsPhoto.album_id'
+				),
+			),
+			'limit' => Configure::read('Gallery.album_limit_pagination'),
+			'order' => 'AlbumsPhoto.weight ASC',
+		);
+		$this->set('photos', $this->paginate());
+	}
+
 	public function admin_moveup($id, $step = 1) {
 		if ($this->Photo->AlbumsPhoto->moveUp($id, $step)) {
 			$this->Session->setFlash(__d('gallery', 'Moved up successfully'), 'flash', array('class' => 'success'));
