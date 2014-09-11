@@ -33,7 +33,7 @@ class PhotosController extends GalleryAppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-
+		$this->Auth->allow('index');
 		$noCsrf = array('admin_toggle');
 		if (in_array($this->action, $noCsrf) && $this->request->is('ajax')) {
 			$this->Security->csrfCheck = false;
@@ -131,7 +131,11 @@ class PhotosController extends GalleryAppController {
 			'limit' => Configure::read('Gallery.album_limit_pagination'),
 			'order' => 'AlbumsPhoto.weight ASC',
 		);
-		$this->set('photos', $this->paginate());
+		$photos = $this->paginate();
+		if (isset($this->params['requested'])) {
+			return $photos;
+		}
+		$this->set(compact('photos'));
 	}
 
 	public function admin_moveup($id, $step = 1) {
