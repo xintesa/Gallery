@@ -1,4 +1,5 @@
 <?php
+
 CroogoRouter::connect('/gallery',
 	array('plugin' => 'gallery', 'controller' => 'albums', 'action' => 'index')
 );
@@ -9,5 +10,8 @@ CroogoRouter::connect('/gallery/albums',
 
 CroogoRouter::connect('/gallery/album/:slug',
 	array('plugin' => 'gallery', 'controller' => 'photos', 'action' => 'index'),
-	array('pass' => array('slug')
-));
+	array(
+		'pass' => array('slug'),
+		'slug' => '[a-z_-]+',
+	)
+);

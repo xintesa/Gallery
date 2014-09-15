@@ -30,11 +30,12 @@ endif;
 		?>
 		</p>
 		<?php
-			echo $this->Html->link(__d('gallery','View album'), array(
+			echo $this->Html->link(__d('gallery', 'View album'), array(
 				'plugin' => 'gallery',
-				'controller' => 'albums',
-				'action' => 'view',
-				'slug' => $album['Album']['slug']));
+				'controller' => 'photos',
+				'action' => 'index',
+				'slug' => $album['Album']['slug'],
+			));
 		?>
 	</li>
 <?php endforeach; ?>
