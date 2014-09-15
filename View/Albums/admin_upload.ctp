@@ -66,7 +66,7 @@ endif;
 $this->append('main');
 ?>
 	<div id="upload" class="<?php echo $columnFull; ?>"></div>
-	<div id="return" class="<?php echo $columnFull; ?>">
+	<div id="return">
 
 		<?php foreach($album['Photo'] as $photo): ?>
 			<div class="album-photo">
