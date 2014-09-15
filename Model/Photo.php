@@ -87,12 +87,18 @@ class Photo extends GalleryAppModel {
 		'by_album' => true,
 	);
 
+/**
+ * constructor
+ */
 	public function __construct($id = false, $table = null, $ds = null){
 		parent::__construct($id = false, $table = null, $ds = null);
 		$this->_loadSettings();
 		$this->setTargetDirectory();
 	}
 
+/**
+ * Load per album settings
+ */
 	protected function _loadSettings() {
 		if (!empty($album['Album']['max_width'])) {
 			$this->max_width = $album['Album']['max_width'];
@@ -125,11 +131,16 @@ class Photo extends GalleryAppModel {
 		}
 	}
 
-
+/**
+ * Gets the configured target upload directory
+ */
 	public function getTargetDirectory() {
 		return $this->dir;
 	}
 
+/**
+ * Sets the configured target upload directory
+ */
 	public function setTargetDirectory($dir = 'photos', $perm = 0775) {
 		if ($dir == 'photos') {
 			$this->albumDir = 'img' . DS . $dir . DS;
@@ -146,11 +157,17 @@ class Photo extends GalleryAppModel {
 		}
 	}
 
+/**
+ * beforeDelete callback
+ */
 	public function beforeDelete($cascade = true) {
 		$photo = $this->findById($this->id);
 		return $this->AssetsAttachment->delete($photo['AssetsAttachment']['id']);
 	}
 
+/**
+ * beforeSave callback
+ */
 	public function beforeSave($options = array()){
 		if ($this->exists()) {
 			return true;
@@ -212,8 +229,11 @@ class Photo extends GalleryAppModel {
 
 		$album = $this->Album->read(null, $albumId);
 
-		if (empty($this->thumb_width) || empty($this->thumb_height) ||
-		    empty($this->thumb_quality) || empty($this->max_height) || empty($this->max_width)) {
+		if (
+			empty($this->thumb_width) || empty($this->thumb_height) ||
+			empty($this->thumb_quality) || empty($this->max_height) ||
+			empty($this->max_width)
+		) {
 			throw new UnexpectedValueException('Missing gallery settings');
 		}
 
@@ -232,7 +252,7 @@ class Photo extends GalleryAppModel {
 			$result = array(
 				'file' => $data['Photo']['original'],
 				'success' => true,
-				);
+			);
 			$data['Photo']['original'] = null;
 			$sourceFile = $this->sourceDir . $result['file'];
 			$copyFile = $this->dir . $result['file'];
@@ -249,6 +269,9 @@ class Photo extends GalleryAppModel {
 		return $data;
 	}
 
+/**
+ * Create image thumbnails
+ */
 	protected function _createThumbnail($attachmentId) {
 		return $this->AssetsAttachment->createResized(
 			$attachmentId, $this->thumb_width, $this->thumb_height, array(
@@ -257,6 +280,9 @@ class Photo extends GalleryAppModel {
 		);
 	}
 
+/**
+ * Create web friendly images
+ */
 	protected function _createWebFriendlyImage($attachmentId) {
 		return $this->AssetsAttachment->createResized(
 			$attachmentId, $this->max_width, null, array(
