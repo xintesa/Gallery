@@ -20,7 +20,7 @@ $editUrl = $this->Html->link($album['Album']['title'], array(
 ));
 
 $this->Html
-	->addCrumb('', '/admin', array('icon' => 'home'))
+	->addCrumb('', '/admin', array('icon' => $_icons['home']))
 	->addCrumb('Gallery')
 	->addCrumb(__d('gallery', 'Albums'), array(
 		'admin' => true,
