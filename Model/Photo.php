@@ -259,11 +259,30 @@ class Photo extends GalleryAppModel {
 			copy($sourceFile, $copyFile);
 		}
 
-		$large = $this->_createWebFriendlyImage($result['attachment_id']);
-		$thumbnail = $this->_createThumbnail($result['attachment_id']);
+		$fp = finfo_open(FILEINFO_MIME_TYPE);
+		$mimeType = finfo_file($fp, WWW_ROOT . $result['file']);
 
-		$data['Photo']['small_id'] = $thumbnail['AssetsAsset']['id'];
-		$data['Photo']['large_id'] = $large['AssetsAsset']['id'];
+		switch ($mimeType) {
+			case 'application/ogg':
+			case 'video/avi':
+			case 'video/mpeg':
+			case 'video/mp4':
+			case 'video/ogg':
+			case 'video/x-flv':
+			case 'video/3gpp':
+				$thumbnail = $this->_createVideoThumbnail($result['attachment_id']);
+				$data['Photo']['small_id'] = $thumbnail['AssetsAsset']['id'];
+			break;
+
+			default:
+				$large = $this->_createWebFriendlyImage($result['attachment_id']);
+				$thumbnail = $this->_createThumbnail($result['attachment_id']);
+
+				$data['Photo']['small_id'] = $thumbnail['AssetsAsset']['id'];
+				$data['Photo']['large_id'] = $large['AssetsAsset']['id'];
+			break;
+		}
+
 		$data['Photo']['original_id'] = $result['asset_id'];
 		$data['Photo']['attachment_id'] = $result['attachment_id'];
 		return $data;
