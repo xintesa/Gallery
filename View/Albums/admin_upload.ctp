@@ -72,9 +72,10 @@ $this->append('main');
 			<div class="album-photo">
 				<div class="preview">
 				<?php
+				$displayPath = isset($photo['LargeAsset']['path']) ? $photo['LargeAsset']['path'] : $photo['OriginalAsset']['path'];
 				echo $this->Html->link(
 					$this->Html->thumbnail($photo['ThumbnailAsset']['path']),
-					$photo['LargeAsset']['path'],
+					$displayPath,
 					array(
 						'rel' => 'gallery-' . $photo['AlbumsPhoto']['album_id'],
 						'class' => 'thickbox',
@@ -86,7 +87,7 @@ $this->append('main');
 
 				<div class="path">
 				<?php
-					$filename = basename($photo['LargeAsset']['path']);
+					$filename = basename($displayPath);
 					$filename = $this->Html->link(
 						$this->Text->truncate($filename, 120),
 						$photo['OriginalAsset']['path'],

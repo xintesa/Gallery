@@ -281,6 +281,17 @@ class Photo extends GalleryAppModel {
 	}
 
 /**
+ * Create video thumbnail
+ */
+	protected function _createVideoThumbnail($attachmentId) {
+		return $this->AssetsAttachment->createVideoThumbnail(
+			$attachmentId, 200, 150, array(
+				'uploadsDir' => 'galleries',
+			)
+		);
+	}
+
+/**
  * Create web friendly images
  */
 	protected function _createWebFriendlyImage($attachmentId) {

@@ -1,7 +1,13 @@
 <?php
 
-if (file_exists(CakePlugin::path('Gallery') . 'Config/gallery.php')) {
+$galleryPath = CakePlugin::path('Gallery');
+
+if (file_exists($galleryPath. 'Config/gallery.php')) {
 	Configure::load('Gallery.gallery');
+}
+
+if (file_exists($galleryPath . 'Vendor/ffmpeg-php/FFmpegAutoloader.php')) {
+	require $galleryPath . 'Vendor/ffmpeg-php/FFmpegAutoloader.php';
 }
 
 Croogo::hookRoutes('Gallery');

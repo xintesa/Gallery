@@ -12,6 +12,9 @@ class AlbumsPhoto extends GalleryAppModel {
 	);
 
 	protected function _addUsage($albumId, $assetId, $type) {
+		if (!$assetId) {
+			return;
+		}
 		static $Usage = null;
 		if ($Usage === null) {
 			$Usage = ClassRegistry::init('Assets.AssetsAssetUsage');
