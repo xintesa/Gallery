@@ -49,9 +49,10 @@ class GalleryHelper extends AppHelper {
  * Include library css/javascript assets into the document
  */
 	public function assets($options = array()) {
-		if (Configure::read('Site.status') == 0 ||
-		    Configure::read('Gallery.assets') === false ||
-		    isset($this->_View->params['admin'])
+		if (
+			Configure::read('Site.status') == 0 ||
+			Configure::read('Gallery.assets') === false ||
+			isset($this->_View->params['admin'])
 		) {
 			return;
 		}
@@ -67,9 +68,10 @@ class GalleryHelper extends AppHelper {
  */
 	public function afterRender($viewFile) {
 		if (!empty($this->_View)) {
-			if (Configure::read('Site.status') == 0 ||
-			    Configure::read('Gallery.assets') === false ||
-			    isset($this->_View->params['admin'])
+			if (
+				Configure::read('Site.status') == 0 ||
+				Configure::read('Gallery.assets') === false ||
+				isset($this->_View->params['admin'])
 			) {
 				return;
 			}
