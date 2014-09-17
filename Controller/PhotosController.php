@@ -1,6 +1,7 @@
 <?php
 
 App::uses('GalleryAppController', 'Gallery.Controller');
+App::uses('MediaType', 'Gallery.Lib');
 
 /**
  * Gallery Pictures Controller
@@ -131,6 +132,16 @@ class PhotosController extends GalleryAppController {
 			'limit' => Configure::read('Gallery.album_limit_pagination'),
 			'order' => 'AlbumsPhoto.weight ASC',
 		);
+
+		$mediaType = $this->request->query('media-type');
+		switch ($mediaType) {
+			case 'video':
+				$this->paginate['conditions']['Photo.media_type'] = MediaType::VIDEO;
+			break;
+			case 'photo':
+				$this->paginate['conditions']['Photo.media_type'] = MediaType::PHOTO;
+			break;
+		}
 		$photos = $this->paginate();
 		if (isset($this->params['requested'])) {
 			return $photos;

@@ -1,6 +1,7 @@
 <?php
 
 App::uses('GalleryAppModel', 'Gallery.Model');
+App::uses('MediaType', 'Gallery.Lib');
 
 use Imagine\Image\Box;
 
@@ -248,6 +249,10 @@ class Photo extends GalleryAppModel {
 				return $data;
 			}
 
+			if (empty($data['Photo']['original'])) {
+				return $data;
+			}
+
 			// fake upload
 			$result = array(
 				'file' => $data['Photo']['original'],
@@ -272,6 +277,7 @@ class Photo extends GalleryAppModel {
 			case 'video/3gpp':
 				$thumbnail = $this->_createVideoThumbnail($result['attachment_id']);
 				$data['Photo']['small_id'] = $thumbnail['AssetsAsset']['id'];
+				$data['Photo']['media_type'] = MediaType::VIDEO;
 			break;
 
 			default:
@@ -280,6 +286,7 @@ class Photo extends GalleryAppModel {
 
 				$data['Photo']['small_id'] = $thumbnail['AssetsAsset']['id'];
 				$data['Photo']['large_id'] = $large['AssetsAsset']['id'];
+				$data['Photo']['media_type'] = MediaType::PHOTO;
 			break;
 		}
 
