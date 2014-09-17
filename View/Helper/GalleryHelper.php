@@ -132,4 +132,33 @@ class GalleryHelper extends AppHelper {
 		$this->{$class}->initialize($album);
 	}
 
+	public function previewExternalVideo($externalUrl, $options = array()) {
+		$options = Hash::merge(array(
+			'width' => 200,
+			'height' => 150,
+			'frameborder' => 0,
+			'allowfullscreen' => 0,
+			'scrolling' => 'no',
+		), $options);
+
+		$url = parse_url($externalUrl);
+		$host = $url['host'];
+		switch ($host) {
+			case 'youtu.be':
+				$options['src'] = 'http://youtube.com/embed' . $url['path'];
+				return $this->Html->tag('iframe', null, $options) . '</iframe>';
+			break;
+			case 'vimeo.com':
+				$fragments = explode('/', $url['path']);
+				$videoId = array_pop($fragments);
+				$options['src'] = 'http://player.vimeo.com/video/' . $videoId;
+				return $this->Html->tag('iframe', null, $options) . '</iframe>';
+			break;
+			default:
+				$this->log('Unsupported embed code: ' . $host . ' ' . $externalUrl[0]);
+				return null;
+			break;
+		}
+	}
+
 }

@@ -21,6 +21,7 @@ class AddVideoSupport extends CakeMigration {
 			'create_field' => array(
 				'photos' => array(
 					'media_type' => array('type' => 'integer', 'after' => 'original_id', 'null' => false, 'default' => 0),
+					'external_url' => array('type' => 'string', 'after' => 'url', 'null' => true),
 				),
 			),
 		),
@@ -28,7 +29,7 @@ class AddVideoSupport extends CakeMigration {
 		'down' => array(
 			'drop_field' => array(
 				'photos' => array(
-					'media_type',
+					'media_type', 'external_url',
 				),
 			),
 		),

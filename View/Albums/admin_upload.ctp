@@ -40,6 +40,19 @@ else:
 endif;
 
 $this->start('actions');
+	echo $this->Html->link(__d('gallery', 'Add Video Link'),
+		array(
+			'plugin' => 'gallery',
+			'controller' => 'photos',
+			'action' => 'add',
+			'?' => array(
+				'album_id' => $album['Album']['id'],
+			),
+		),
+		array(
+			'button' => 'default',
+		)
+	);
 	echo $this->Form->postLink(__d('gallery', 'Reset weight'),
 		array(
 			'plugin' => 'gallery',
@@ -72,21 +85,32 @@ $this->append('main');
 			<div class="album-photo">
 				<div class="preview">
 				<?php
-				$displayPath = isset($photo['LargeAsset']['path']) ? $photo['LargeAsset']['path'] : $photo['OriginalAsset']['path'];
-				echo $this->Html->link(
-					$this->Html->thumbnail($photo['ThumbnailAsset']['path']),
-					$displayPath,
-					array(
-						'rel' => 'gallery-' . $photo['AlbumsPhoto']['album_id'],
-						'class' => 'thickbox',
-						'escape' => false,
-					)
-				);
+				if ($photo['media_type'] == MediaType::VIDEO_LINK):
+					echo $this->Gallery->previewExternalVideo($photo['external_url']);
+				else:
+					$displayPath = isset($photo['LargeAsset']['path']) ? $photo['LargeAsset']['path'] : $photo['OriginalAsset']['path'];
+					echo $this->Html->link(
+						$this->Html->thumbnail($photo['ThumbnailAsset']['path']),
+						$displayPath,
+						array(
+							'rel' => 'gallery-' . $photo['AlbumsPhoto']['album_id'],
+							'class' => 'thickbox',
+							'escape' => false,
+						)
+					);
+				endif;
 				?>
 				</div>
 
 				<div class="path">
 				<?php
+				if ($photo['media_type'] == MediaType::VIDEO_LINK):
+					$url = $photo['external_url'];
+					$link = $this->Html->link($url, $url, array(
+						'target' => '_blank',
+					));
+					echo __d('gallery', 'URL: %s', $link);
+				else:
 					$filename = basename($displayPath);
 					$filename = $this->Html->link(
 						$this->Text->truncate($filename, 120),
@@ -94,6 +118,7 @@ $this->append('main');
 						array('target' => '_blank', 'title' => $filename)
 					);
 					echo __d('gallery', 'Filename: %s', $filename);
+				endif;
 				?>
 				</div>
 

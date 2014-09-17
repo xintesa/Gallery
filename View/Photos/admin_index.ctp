@@ -15,7 +15,7 @@ $this->append('table-heading');
 		$this->Paginator->sort('small', __d('gallery', 'Preview')),
 		$this->Paginator->sort('title', __d('gallery', 'Title')),
 		$this->Paginator->sort('description', __d('gallery', 'Description')),
-		$this->Paginator->sort('url', __d('gallery', 'url')),
+		$this->Paginator->sort('url', __d('gallery', 'Url')),
 		__d('gallery', 'Albums'),
 		$this->Paginator->sort('status'),
 		__d('gallery', 'Actions'),
@@ -25,7 +25,7 @@ $this->end();
 
 $this->append('table-body');
 	$rows = array();
-	foreach ($photos AS $attachment):
+	foreach ($photos as $attachment):
 		$actions = array();
 		$actions[] = $this->Croogo->adminRowAction('',
 			array('controller' => 'photos', 'action' => 'edit', $attachment['Photo']['id']),
@@ -36,11 +36,19 @@ $this->append('table-body');
 		);
 		$actions[] = $this->Croogo->adminRowActions($attachment['Photo']['id']);
 
-		$thumbnail = $this->Html->link(
-			$this->Html->thumbnail($attachment['ThumbnailAsset']['path']),
-			$attachment['LargeAsset']['path'],
-			array('class' => 'thickbox', 'escape' => false)
-		);
+		$thumbnail = null;
+		if (!empty($attachment['ThumbnailAsset']['path'])):
+			$displayPath = isset($attachment['LargeAsset']['path']) ?
+				$attachment['LargeAsset']['path'] :
+				$attachment['ThumbnailAsset']['path'];
+			$thumbnail = $this->Html->link(
+				$this->Html->thumbnail($attachment['ThumbnailAsset']['path']),
+				$displayPath,
+				array('class' => 'thickbox', 'escape' => false)
+			);
+		elseif (!empty($attachment['Photo']['external_url'])):
+			$thumbnail = $this->Gallery->previewExternalVideo($attachment['Photo']['external_url']);
+		endif;
 
 		$albumLinks = array();
 		$photoAlbums = Hash::extract($attachment, 'Album.{n}');

@@ -170,13 +170,16 @@ class Photo extends GalleryAppModel {
  * beforeSave callback
  */
 	public function beforeSave($options = array()){
-		if ($this->exists()) {
-			return true;
-		}
 		$this->getEventManager()->dispatch(
 			new CakeEvent('setupAlbumPath', $this)
 		);
 		$this->data = $this->_upload($this->data);
+		if (
+			empty($this->data[$this->alias]['media_type']) &&
+			isset($this->data[$this->alias]['external_url'])
+		) {
+			$this->data[$this->alias]['media_type'] = MediaType::VIDEO_LINK;
+		}
 		return true;
 	}
 
