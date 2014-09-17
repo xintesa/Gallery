@@ -47,6 +47,7 @@ $this->append('tab-content');
 		)) .
 		$this->Form->input('slug', array(
 			'label' => __d('gallery', 'Slug'),
+			'class' => trim('slug ' . $inputClass) ,
 		)) .
 		$this->Form->input('description', array(
 			'label' => __d('gallery', 'Description'),

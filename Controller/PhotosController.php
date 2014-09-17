@@ -1,6 +1,7 @@
 <?php
 
 App::uses('GalleryAppController', 'Gallery.Controller');
+App::uses('MediaType', 'Gallery.Lib');
 
 /**
  * Gallery Pictures Controller
@@ -79,6 +80,33 @@ class PhotosController extends GalleryAppController {
 		}
 	}
 
+	public function admin_add() {
+		if ($this->request->is('post')) {
+			$saved = $this->Photo->save($this->request->data);
+			if ($saved) {
+				$id = $saved['Photo']['id'];
+				$this->Session->setFlash(__d('gallery', 'Photo has been saved.'), 'flash', array('class' => 'success'));
+				$this->Croogo->redirect(array('action' => 'edit', $id));
+			} else {
+				$this->Session->setFlash(__d('gallery', 'Photo cannot be saved.'), 'flash', array('class' => 'error'));
+			}
+		}
+
+		$albumId = $this->request->query('album_id');
+		if ($albumId) {
+			$album = $this->Photo->Album->find('first', array(
+				'recursive' => -1,
+				'conditions' => array(
+					'id' => $albumId,
+				),
+			));
+			$this->request->data['Album']['Album'] = array($albumId);
+			$this->set(compact('album'));
+		}
+		$albums = $this->Photo->Album->find('list');
+		$this->set(compact('albums'));
+	}
+
 	public function admin_edit($id) {
 		$this->Photo->id = $id;
 		if ($this->request->is('post') || $this->request->is('put')) {
@@ -131,6 +159,16 @@ class PhotosController extends GalleryAppController {
 			'limit' => Configure::read('Gallery.album_limit_pagination'),
 			'order' => 'AlbumsPhoto.weight ASC',
 		);
+
+		$mediaType = $this->request->query('media-type');
+		switch ($mediaType) {
+			case 'video':
+				$this->paginate['conditions']['Photo.media_type'] = MediaType::VIDEO;
+			break;
+			case 'photo':
+				$this->paginate['conditions']['Photo.media_type'] = MediaType::PHOTO;
+			break;
+		}
 		$photos = $this->paginate();
 		if (isset($this->params['requested'])) {
 			return $photos;

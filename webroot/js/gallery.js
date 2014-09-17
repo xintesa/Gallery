@@ -4,7 +4,7 @@ if (typeof Croogo !== 'undefined') {
 			var $albumTitle = $('#AlbumTitle');
 			if ($albumTitle.length > 0) {
 				$('#AlbumTitle').slug({
-					slug: '#AlbumSlug',
+					slug: 'slug',
 					hide: false
 				});
 			}

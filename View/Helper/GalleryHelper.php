@@ -49,9 +49,10 @@ class GalleryHelper extends AppHelper {
  * Include library css/javascript assets into the document
  */
 	public function assets($options = array()) {
-		if (Configure::read('Site.status') == 0 ||
-		    Configure::read('Gallery.assets') === false ||
-		    isset($this->_View->params['admin'])
+		if (
+			Configure::read('Site.status') == 0 ||
+			Configure::read('Gallery.assets') === false ||
+			isset($this->_View->params['admin'])
 		) {
 			return;
 		}
@@ -67,9 +68,10 @@ class GalleryHelper extends AppHelper {
  */
 	public function afterRender($viewFile) {
 		if (!empty($this->_View)) {
-			if (Configure::read('Site.status') == 0 ||
-			    Configure::read('Gallery.assets') === false ||
-			    isset($this->_View->params['admin'])
+			if (
+				Configure::read('Site.status') == 0 ||
+				Configure::read('Gallery.assets') === false ||
+				isset($this->_View->params['admin'])
 			) {
 				return;
 			}
@@ -80,7 +82,7 @@ class GalleryHelper extends AppHelper {
 	public function beforeRender($viewFile) {
 		if (isset($this->_View->params['admin'])) {
 			$this->Html->css('/gallery/css/gallery', null, array('inline' => false));
-			$this->Html->script('Gallery.gallery', array('inline' => false));
+			$this->Html->script('Gallery.gallery', array('block' => 'scriptBottom'));
 		}
 	}
 
@@ -130,6 +132,35 @@ class GalleryHelper extends AppHelper {
 	public function initialize($album) {
 		$class = $this->__helperClassName($album['Album']['type']);
 		$this->{$class}->initialize($album);
+	}
+
+	public function previewExternalVideo($externalUrl, $options = array()) {
+		$options = Hash::merge(array(
+			'width' => 200,
+			'height' => 150,
+			'frameborder' => 0,
+			'allowfullscreen' => 0,
+			'scrolling' => 'no',
+		), $options);
+
+		$url = parse_url($externalUrl);
+		$host = $url['host'];
+		switch ($host) {
+			case 'youtu.be':
+				$options['src'] = 'http://youtube.com/embed' . $url['path'];
+				return $this->Html->tag('iframe', null, $options) . '</iframe>';
+			break;
+			case 'vimeo.com':
+				$fragments = explode('/', $url['path']);
+				$videoId = array_pop($fragments);
+				$options['src'] = 'http://player.vimeo.com/video/' . $videoId;
+				return $this->Html->tag('iframe', null, $options) . '</iframe>';
+			break;
+			default:
+				$this->log('Unsupported embed code: ' . $host . ' ' . $externalUrl[0]);
+				return null;
+			break;
+		}
 	}
 
 }

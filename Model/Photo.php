@@ -1,6 +1,7 @@
 <?php
 
 App::uses('GalleryAppModel', 'Gallery.Model');
+App::uses('MediaType', 'Gallery.Lib');
 
 use Imagine\Image\Box;
 
@@ -87,12 +88,18 @@ class Photo extends GalleryAppModel {
 		'by_album' => true,
 	);
 
+/**
+ * constructor
+ */
 	public function __construct($id = false, $table = null, $ds = null){
 		parent::__construct($id = false, $table = null, $ds = null);
 		$this->_loadSettings();
 		$this->setTargetDirectory();
 	}
 
+/**
+ * Load per album settings
+ */
 	protected function _loadSettings() {
 		if (!empty($album['Album']['max_width'])) {
 			$this->max_width = $album['Album']['max_width'];
@@ -125,11 +132,16 @@ class Photo extends GalleryAppModel {
 		}
 	}
 
-
+/**
+ * Gets the configured target upload directory
+ */
 	public function getTargetDirectory() {
 		return $this->dir;
 	}
 
+/**
+ * Sets the configured target upload directory
+ */
 	public function setTargetDirectory($dir = 'photos', $perm = 0775) {
 		if ($dir == 'photos') {
 			$this->albumDir = 'img' . DS . $dir . DS;
@@ -146,19 +158,28 @@ class Photo extends GalleryAppModel {
 		}
 	}
 
+/**
+ * beforeDelete callback
+ */
 	public function beforeDelete($cascade = true) {
 		$photo = $this->findById($this->id);
 		return $this->AssetsAttachment->delete($photo['AssetsAttachment']['id']);
 	}
 
+/**
+ * beforeSave callback
+ */
 	public function beforeSave($options = array()){
-		if ($this->exists()) {
-			return true;
-		}
 		$this->getEventManager()->dispatch(
 			new CakeEvent('setupAlbumPath', $this)
 		);
 		$this->data = $this->_upload($this->data);
+		if (
+			empty($this->data[$this->alias]['media_type']) &&
+			isset($this->data[$this->alias]['external_url'])
+		) {
+			$this->data[$this->alias]['media_type'] = MediaType::VIDEO_LINK;
+		}
 		return true;
 	}
 
@@ -212,8 +233,11 @@ class Photo extends GalleryAppModel {
 
 		$album = $this->Album->read(null, $albumId);
 
-		if (empty($this->thumb_width) || empty($this->thumb_height) ||
-		    empty($this->thumb_quality) || empty($this->max_height) || empty($this->max_width)) {
+		if (
+			empty($this->thumb_width) || empty($this->thumb_height) ||
+			empty($this->thumb_quality) || empty($this->max_height) ||
+			empty($this->max_width)
+		) {
 			throw new UnexpectedValueException('Missing gallery settings');
 		}
 
@@ -228,27 +252,55 @@ class Photo extends GalleryAppModel {
 				return $data;
 			}
 
+			if (empty($data['Photo']['original'])) {
+				return $data;
+			}
+
 			// fake upload
 			$result = array(
 				'file' => $data['Photo']['original'],
 				'success' => true,
-				);
+			);
 			$data['Photo']['original'] = null;
 			$sourceFile = $this->sourceDir . $result['file'];
 			$copyFile = $this->dir . $result['file'];
 			copy($sourceFile, $copyFile);
 		}
 
-		$large = $this->_createWebFriendlyImage($result['attachment_id']);
-		$thumbnail = $this->_createThumbnail($result['attachment_id']);
+		$fp = finfo_open(FILEINFO_MIME_TYPE);
+		$mimeType = finfo_file($fp, WWW_ROOT . $result['file']);
 
-		$data['Photo']['small_id'] = $thumbnail['AssetsAsset']['id'];
-		$data['Photo']['large_id'] = $large['AssetsAsset']['id'];
+		switch ($mimeType) {
+			case 'application/ogg':
+			case 'video/avi':
+			case 'video/mpeg':
+			case 'video/mp4':
+			case 'video/ogg':
+			case 'video/x-flv':
+			case 'video/3gpp':
+				$thumbnail = $this->_createVideoThumbnail($result['attachment_id']);
+				$data['Photo']['small_id'] = $thumbnail['AssetsAsset']['id'];
+				$data['Photo']['media_type'] = MediaType::VIDEO;
+			break;
+
+			default:
+				$large = $this->_createWebFriendlyImage($result['attachment_id']);
+				$thumbnail = $this->_createThumbnail($result['attachment_id']);
+
+				$data['Photo']['small_id'] = $thumbnail['AssetsAsset']['id'];
+				$data['Photo']['large_id'] = $large['AssetsAsset']['id'];
+				$data['Photo']['media_type'] = MediaType::PHOTO;
+			break;
+		}
+
 		$data['Photo']['original_id'] = $result['asset_id'];
 		$data['Photo']['attachment_id'] = $result['attachment_id'];
 		return $data;
 	}
 
+/**
+ * Create image thumbnails
+ */
 	protected function _createThumbnail($attachmentId) {
 		return $this->AssetsAttachment->createResized(
 			$attachmentId, $this->thumb_width, $this->thumb_height, array(
@@ -257,6 +309,20 @@ class Photo extends GalleryAppModel {
 		);
 	}
 
+/**
+ * Create video thumbnail
+ */
+	protected function _createVideoThumbnail($attachmentId) {
+		return $this->AssetsAttachment->createVideoThumbnail(
+			$attachmentId, 200, 150, array(
+				'uploadsDir' => 'galleries',
+			)
+		);
+	}
+
+/**
+ * Create web friendly images
+ */
 	protected function _createWebFriendlyImage($attachmentId) {
 		return $this->AssetsAttachment->createResized(
 			$attachmentId, $this->max_width, null, array(
