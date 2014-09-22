@@ -127,6 +127,10 @@ class PhotosController extends GalleryAppController {
 	public function index($slug = null) {
 		$this->set('title_for_layout',__d('gallery', "Photos"));
 
+		if ($slug === null) {
+			$slug = $this->request->param('slug');
+		}
+
 		if (!$slug) {
 			$this->Session->setFlash(__d('gallery', 'Invalid album. Please try again.'), 'flash' , array('class' => 'error'));
 			$this->redirect(array('controller' => 'albums', 'action' => 'index'));
