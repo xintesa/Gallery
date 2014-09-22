@@ -146,6 +146,11 @@ class GalleryHelper extends AppHelper {
 		$url = parse_url($externalUrl);
 		$host = $url['host'];
 		switch ($host) {
+			case 'www.youtube.com':
+				$videoId = str_replace('v=',  '',$url['query']);
+				$options['src'] = 'http://' . $host  . '/embed/' . $videoId;
+				return $this->Html->tag('iframe', null, $options) . '</iframe>';
+			break;
 			case 'youtu.be':
 				$options['src'] = 'http://youtube.com/embed' . $url['path'];
 				return $this->Html->tag('iframe', null, $options) . '</iframe>';
