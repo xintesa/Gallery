@@ -135,6 +135,7 @@ class AlbumsController extends GalleryAppController {
 	}
 
 	public function index() {
+		$mediaType = $this->passedArgs['media-type'];
 		$this->set('title_for_layout',__d('gallery',"Albums"));
 
 		$this->Album->recursive = -1;
@@ -149,6 +150,12 @@ class AlbumsController extends GalleryAppController {
 			'limit' => Configure::read('Gallery.album_limit_pagination'),
 			'order' => 'Album.position ASC',
 		);
+
+		//filter album by media-type
+		if (!empty($this->passedArgs['media-type'])) {
+			$mediaType = $this->passedArgs['media-type'];
+			$this->paginate['conditions'][] = $this->Album->addMediaTypeFilter($mediaType);
+		}
 
 		$this->set('albums', $this->paginate());
 	}

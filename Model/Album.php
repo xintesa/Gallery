@@ -1,6 +1,7 @@
 <?php
 
 App::uses('GalleryAppModel', 'Gallery.Model');
+App::uses('MediaType', 'Gallery.Lib');
 
 /**
  * Album
@@ -128,6 +129,29 @@ class Album extends GalleryAppModel {
 			}
 		}
 		return true;
+	}
+
+	public function addMediaTypeFilter($mediaType = null) {
+		if (empty($mediaType)) {
+			return array();
+		}
+		$mediaTypeFilter = '';
+		if ($mediaType == 'photo') {
+			$mediaTypeFilter = sprintf('and p.media_type = ', MediaType::PHOTO);
+		} elseif ($mediaType == 'video') {
+			$mediaTypeFilter = sprintf('and p.media_type in (%s, %s)', MediaType::VIDEO, MediaType::VIDEO_LINK);
+		}
+		$result = sprintf('exists (
+				select p.id
+				from albums_photos ap, photos p
+				where ap.photo_id = p.id
+				and ap.album_id = %s.id
+				%s
+			)',
+			$this->alias,
+			$mediaTypeFilter
+		);
+		return $result;
 	}
 
 }
