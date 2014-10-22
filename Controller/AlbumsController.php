@@ -135,7 +135,6 @@ class AlbumsController extends GalleryAppController {
 	}
 
 	public function index() {
-		$mediaType = $this->passedArgs['media-type'];
 		$this->set('title_for_layout',__d('gallery',"Albums"));
 
 		$this->Album->recursive = -1;
@@ -226,6 +225,7 @@ class AlbumsController extends GalleryAppController {
 		$slug = $this->Album->field('slug', array('Album.id' => $id));
 		$this->Album->Photo->setTargetDirectory($slug);
 		$data = $this->Album->Photo->create();
+		$this->Album->Photo->type = 'photo';
 		$this->Album->Photo->save($this->request->data);
 
 		echo json_encode($this->Album->Photo->findById($this->Album->Photo->id));

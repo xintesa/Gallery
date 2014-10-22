@@ -36,6 +36,7 @@ class PhotosController extends GalleryAppController {
 		parent::beforeFilter();
 		$this->Auth->allow('index');
 		$noCsrf = array('admin_toggle');
+		$this->Taxonomy = ClassRegistry::init('Taxonomy.Taxonomy');
 		if (in_array($this->action, $noCsrf) && $this->request->is('ajax')) {
 			$this->Security->csrfCheck = false;
 		}
@@ -81,7 +82,11 @@ class PhotosController extends GalleryAppController {
 	}
 
 	public function admin_add() {
+		$typeAlias = 'photo';
+		$type = $this->Taxonomy->Vocabulary->Type->findByAlias($typeAlias);
+
 		if ($this->request->is('post')) {
+			$this->Photo->type = $typeAlias;
 			$saved = $this->Photo->save($this->request->data);
 			if ($saved) {
 				$id = $saved['Photo']['id'];
@@ -103,13 +108,18 @@ class PhotosController extends GalleryAppController {
 			$this->request->data['Album']['Album'] = array($albumId);
 			$this->set(compact('album'));
 		}
+		$this->Taxonomies->prepareCommonData($type);
 		$albums = $this->Photo->Album->find('list');
 		$this->set(compact('albums'));
 	}
 
 	public function admin_edit($id) {
+		$typeAlias = 'photo';
+		$type = $this->Taxonomy->Vocabulary->Type->findByAlias($typeAlias);
+
 		$this->Photo->id = $id;
 		if ($this->request->is('post') || $this->request->is('put')) {
+			$this->Photo->type = $typeAlias;
 			if ($this->Photo->save($this->request->data)) {
 				$this->Session->setFlash(__d('gallery', 'Photo has been saved.'), 'flash', array('class' => 'success'));
 				$this->Croogo->redirect(array('action' => 'edit', $id));
@@ -118,9 +128,10 @@ class PhotosController extends GalleryAppController {
 			}
 		}
 		$this->Photo->recursive = -1;
-		$this->Photo->contain(array('Album', 'OriginalAsset', 'ThumbnailAsset', 'LargeAsset'));
+		$this->Photo->contain(array('Album', 'OriginalAsset', 'ThumbnailAsset', 'LargeAsset', 'Taxonomy'));
 		$this->request->data = $this->Photo->read(null, $id);
 		$albums = $this->Photo->Album->find('list');
+		$this->Taxonomies->prepareCommonData($type);
 		$this->set(compact('albums'));
 	}
 
@@ -141,13 +152,12 @@ class PhotosController extends GalleryAppController {
 		$this->Photo->recursive = -1;
 		$this->Photo->Behaviors->attach('Containable');
 		$this->paginate = array(
-			'fields' => array('*', 'Album.*'),
 			'conditions' => array(
 				'Photo.status' => CroogoStatus::PUBLISHED,
 				'Album.slug' => $slug,
 				'Album.status' => CroogoStatus::PUBLISHED
 			),
-			'contain' => array('ThumbnailAsset', 'LargeAsset', 'OriginalAsset'),
+			'contain' => array('ThumbnailAsset', 'LargeAsset', 'OriginalAsset', 'Taxonomy'),
 			'joins' => array(
 				array(
 					'alias' => $this->AlbumsPhoto->alias,
@@ -178,6 +188,9 @@ class PhotosController extends GalleryAppController {
 			return $photos;
 		}
 		$this->set(compact('photos'));
+		$this->Croogo->viewFallback(array(
+			'index_' . $slug
+		));
 	}
 
 	public function admin_moveup($id, $step = 1) {

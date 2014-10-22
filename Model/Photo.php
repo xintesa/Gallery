@@ -31,11 +31,13 @@ class Photo extends GalleryAppModel {
  * Behaviors
  */
 	public $actsAs = array(
+		'Croogo.Encoder',
 		'Croogo.Params',
 		'Croogo.Publishable',
 		'Croogo.Trackable',
 		'Imagine.Imagine',
 		'Search.Searchable',
+		'Taxonomy.Taxonomizable',
 	);
 
 	public $filterArgs = array(
@@ -170,10 +172,19 @@ class Photo extends GalleryAppModel {
  * beforeSave callback
  */
 	public function beforeSave($options = array()){
+
 		$this->getEventManager()->dispatch(
 			new CakeEvent('setupAlbumPath', $this)
 		);
 		$this->data = $this->_upload($this->data);
+		if (array_key_exists('TaxonomyData', $this->data)) {
+			$this->Behaviors->Taxonomizable->formatTaxonomyData($this, $this->data, 'photo');
+		}
+
+		if (empty($this->data[$this->alias]['external_url'])) {
+			unset($this->data[$this->alias]['external_url']);
+		}
+
 		if (
 			empty($this->data[$this->alias]['media_type']) &&
 			isset($this->data[$this->alias]['external_url'])
