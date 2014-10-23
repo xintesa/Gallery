@@ -157,7 +157,7 @@ class PhotosController extends GalleryAppController {
 				'Album.slug' => $slug,
 				'Album.status' => CroogoStatus::PUBLISHED
 			),
-			'contain' => array('ThumbnailAsset', 'LargeAsset', 'OriginalAsset', 'Taxonomy'),
+			'contain' => array('Album', 'ThumbnailAsset', 'LargeAsset', 'OriginalAsset', 'Taxonomy'),
 			'joins' => array(
 				array(
 					'alias' => $this->AlbumsPhoto->alias,
