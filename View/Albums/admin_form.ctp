@@ -16,7 +16,7 @@ if (empty($this->data['Album']['title'])) {
 $inputDefaults = $this->Form->settings;
 $inputClass = isset($inputDefaults['class']) ? $inputDefaults['class'] : null;
 if (empty($inputClass)):
-	$inputClass = $this->Layout->cssClass('formInput');
+	$inputClass = $this->Theme->getCssClass('formInput');
 endif;
 
 $this->start('actions');

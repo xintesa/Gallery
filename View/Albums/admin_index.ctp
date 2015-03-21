@@ -50,11 +50,11 @@ $this->append('table-body');
 		$actions[] = $this->Croogo->adminRowActions($album['Album']['id']);
 		$actions[] = $this->Croogo->adminRowAction('',
 			array('controller' => 'albums', 'action' => 'edit', $album['Album']['id']),
-			array('icon' => $_icons['update'], 'tooltip' => __d('gallery', 'Edit'))
+			array('icon' => $this->Theme->getIcon('update'), 'tooltip' => __d('gallery', 'Edit'))
 		);
 		$actions[] = $this->Croogo->adminRowAction('',
 			array('controller' => 'albums', 'action' => 'delete', $album['Album']['id']),
-			array('icon' => $_icons['delete'], 'tooltip' => __d('gallery', 'Delete')),
+			array('icon' => $this->Theme->getIcon('delete'), 'tooltip' => __d('gallery', 'Delete')),
 			__d('gallery', 'Are you sure you want to delete this album?')
 		);
 

@@ -30,7 +30,7 @@ $this->append('table-body');
 		$actions[] = $this->Croogo->adminRowAction('',
 			array('controller' => 'photos', 'action' => 'edit', $attachment['Photo']['id']),
 			array(
-				'icon' => $_icons['update'],
+				'icon' => $this->Theme->getIcon('update'),
 				'tooltip' => __d('gallery', 'Edit')
 			)
 		);
