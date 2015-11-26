@@ -43,7 +43,8 @@ $this->append('table-body');
 		$actions[] = $this->Html->link('',
 			array('controller' => 'albums', 'action' => 'upload', $album['Album']['id']),
 			array(
-				'class' => 'icon-large icon-picture',
+				'class' => 'icon-large',
+				'icon' => 'picture',
 				'tooltip' => __d('gallery','Photos in album'),
 			)
 		);
