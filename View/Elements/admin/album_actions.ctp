@@ -4,7 +4,7 @@
 		array(
 			'rel' => $photo['id'],
 			'class' => 'remove red',
-			'icon' => $_icons['delete'],
+			'icon' => $this->Theme->getIcon('delete'),
 		)
 	);
 ?>
@@ -16,7 +16,7 @@
 		$photo['id'],
 	), array(
 		'class' => 'edit',
-		'icon' => $_icons['update'],
+		'icon' => $this->Theme->getIcon('update'),
 	));
 
 ?>
@@ -28,7 +28,7 @@
 		$photo['AlbumsPhoto']['id'],
 	), array(
 		'class' => 'up',
-		'icon' => $_icons['move-up'],
+		'icon' => $this->Theme->getIcon('move-up'),
 	));
 ?>
 
@@ -39,7 +39,7 @@
 		$photo['AlbumsPhoto']['id'],
 	), array(
 		'class' => 'down',
-		'icon' => $_icons['move-down'],
+		'icon' => $this->Theme->getIcon('move-down'),
 	));
 ?>
 </div>
